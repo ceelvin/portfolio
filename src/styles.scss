@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+  list-style-type: none;
+
+}
+
+:root{
+  font-family: 'Rubik', sans-serif;
+
+  --bg-color: linear-gradient(130.08deg, #383538 0%, #191919 100%);
+  --text-color: #fff;
+  --main-color: rgb(206, 21, 21);
+
+  --big-font: 7rem;
+  --p-font: 1.1rem;
+}
+
+body{
+  background: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+}

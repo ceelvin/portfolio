@@ -1,0 +1,19 @@
+section{
+  padding: 0 15%;
+}
+.home{
+  position: relative;
+  width: 100%;
+  height: 120vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.home-text p{
+  font-size: var(--p-font);
+  font-weight: 400;
+  color: #c3c3c3;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
