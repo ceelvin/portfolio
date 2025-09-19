@@ -1,3 +1,5 @@
+import "./Projects.css";
+
 const Projects = () => {
   const projects = [
     {
@@ -21,29 +23,23 @@ const Projects = () => {
   ];
 
   return (
-    <section
-      id="projects"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-[#1b263b]/50"
-    >
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-8">Projects</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section id="projects" className="projects-section">
+      <div className="projects-container">
+        <h2 className="projects-title">Projects</h2>
+        <div className="projects-grid">
           {projects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-[#0d1b2a]/80 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-              <p className="text-base mb-4">{project.description}</p>
+            <article key={index} className="project-card">
+              <h3 className="project-title">{project.title}</h3>
+              <p className="project-description">{project.description}</p>
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 transition-colors"
+                className="project-link"
               >
-                View Project
+                View Project →
               </a>
-            </div>
+            </article>
           ))}
         </div>
       </div>

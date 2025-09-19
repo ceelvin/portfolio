@@ -6,6 +6,7 @@
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
   font-family: "JetBrains Mono";
   src: url("./assets/fonts/JetBrainsMono-Bold.ttf") format("truetype");
@@ -17,8 +18,133 @@
   html {
     font-family: "JetBrains Mono", monospace;
   }
+
   body {
     @apply bg-gradient-to-br from-[#0d1b2a] to-[#1b263b] text-white;
+  }
+}
+
+.main {
+  position: relative;
+  z-index: 2;
+  min-height: 200vh;
+}
+
+.headliner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  background: transparent;
+  padding: 25vh 2rem 2rem 2rem;
+}
+
+/* General section styles - adjusted for portfolio wrapper */
+section {
+  padding: 20px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.about {
+  margin: 50px auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Portfolio Wrapper - Side-by-Side Layout */
+.portfolio-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  padding: 1rem 0;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.projects-section-wrapper,
+.skills-section-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .portfolio-wrapper {
+    flex-direction: row;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .projects-section-wrapper,
+  .skills-section-wrapper {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    max-width: 50%;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 1535px) {
+  .projects-section-wrapper,
+  .skills-section-wrapper {
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 479px) {
+  .portfolio-wrapper {
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+
+  .projects-section-wrapper,
+  .skills-section-wrapper {
+    padding: 1.5rem 0;
+  }
+}
+
+/* Smooth scrolling target adjustments */
+.projects-section-wrapper,
+.skills-section-wrapper {
+  scroll-margin-top: 80px; /* Adjust based on your navbar height */
+}
+
+/* Ensure content doesn't overflow */
+.projects-section-wrapper > *,
+.skills-section-wrapper > * {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contact {
+  background: #1b263b;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive adjustments for the portfolio sections */
+@media (min-width: 768px) {
+  .projects-section-wrapper > section,
+  .skills-section-wrapper > section {
+    padding: 0 !important; /* Override general section padding when side-by-side */
   }
 }
 

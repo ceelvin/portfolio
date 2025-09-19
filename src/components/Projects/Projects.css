@@ -1,0 +1,136 @@
+.projects-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects-container {
+  width: fit-content;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .projects-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .projects-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.projects-title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+@media (min-width: 640px) {
+  .projects-title {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 28rem;
+}
+
+@media (max-width: 639px) {
+  .projects-grid {
+    max-width: 100%;
+  }
+}
+
+.project-card {
+  background-color: rgba(13, 27, 42, 0.8);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #4b5563;
+  width: 100%;
+  max-width: 28rem;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+}
+
+.project-card:hover {
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.project-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.project-description {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+  color: #d1d5db;
+}
+
+.project-link {
+  color: #60a5fa;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.project-link:hover {
+  color: #3b82f6;
+}
+
+.project-link::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: 0.25rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 479px) {
+  .projects-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .projects-title {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  .projects-grid {
+    gap: 1rem;
+  }
+
+  .project-card {
+    padding: 1.25rem;
+  }
+}
