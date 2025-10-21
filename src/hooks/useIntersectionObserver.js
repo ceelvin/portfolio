@@ -1,28 +1,43 @@
 import { useEffect } from 'react';
+import { INTERSECTION_THRESHOLDS, ROOT_MARGINS, ANIMATION_CLASSES } from '../constants';
 
-const useIntersectionObserver = (ref, options = {}) => {
+const useIntersectionObserver = (
+  refs,
+  options = {},
+  className = ANIMATION_CLASSES.ANIMATE
+) => {
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate');
-      }
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px',
+    const defaultOptions = {
+      threshold: INTERSECTION_THRESHOLDS.LOW,
+      rootMargin: ROOT_MARGINS.DEFAULT,
       ...options
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(className);
+        }
+      });
+    }, defaultOptions);
+
+    // Handle both single ref and array of refs
+    const refArray = Array.isArray(refs) ? refs : [refs];
+
+    refArray.forEach((ref) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
     });
 
-    const currentRef = ref.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      refArray.forEach((ref) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      });
     };
-  }, [ref, options]);
+  }, [refs, options, className]);
 };
 
 export default useIntersectionObserver;

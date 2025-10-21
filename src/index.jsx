@@ -6,9 +6,11 @@ import About from "./components/About/About";
 import Projects from "./components/Projects/Projects";
 import Footer from "./components/Footer/Footer";
 import BackToTop from "./components/BackToTop/BackToTop";
+import ErrorBoundary from "./components/common/ErrorBoundary";
 import "./index.css";
 import Skills from "./components/Skills/Skills";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
+import { INTERSECTION_THRESHOLDS } from "./constants";
 
 
 const App = () => {
@@ -16,9 +18,9 @@ const App = () => {
   const projectsRef = React.useRef();
   const skillsRef = React.useRef();
 
-  useIntersectionObserver(aboutRef, { threshold: 0.2 });
-  useIntersectionObserver(projectsRef, { threshold: 0.1 });
-  useIntersectionObserver(skillsRef, { threshold: 0.1 });
+  useIntersectionObserver(aboutRef, { threshold: INTERSECTION_THRESHOLDS.MEDIUM });
+  useIntersectionObserver(projectsRef, { threshold: INTERSECTION_THRESHOLDS.LOW });
+  useIntersectionObserver(skillsRef, { threshold: INTERSECTION_THRESHOLDS.LOW });
 
 
   useEffect(() => {
@@ -64,6 +66,8 @@ const App = () => {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>,
 );

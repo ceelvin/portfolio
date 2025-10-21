@@ -185,7 +185,6 @@
 
 .social-links {
   display: flex;
-  justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
 }
@@ -203,7 +202,7 @@
   transition: all 0.3s ease;
   text-decoration: none;
   color: white;
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .social-link:hover {

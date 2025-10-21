@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import React from "react";
 import "./About.css";
-import useMultipleIntersectionObserver from "../../hooks/useMultipleIntersectionObserver";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { journey } from "../../data/about";
-import { FaBolt, FaUsers, FaBriefcase, FaTrophy, FaGraduationCap, FaRocket, FaCode } from "react-icons/fa";
+import { ANIMATION_DELAYS } from "../../constants";
+import { FaBolt, FaUsers, FaBriefcase, FaTrophy, FaGraduationCap, FaRocket } from "react-icons/fa";
 
 const iconMap = {
   bolt: <FaBolt />,
@@ -14,9 +15,11 @@ const iconMap = {
 };
 
 const About = () => {
-  const cardRefs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
+  const cardRefs = React.useMemo(() =>
+    Array.from({ length: journey.length }, () => React.createRef()), []
+  );
 
-  useMultipleIntersectionObserver(cardRefs);
+  useIntersectionObserver(cardRefs, {}, 'visible');
 
 
 
@@ -44,12 +47,16 @@ const About = () => {
               </div>
             </div>
           </div>
-          <div className="hero-avatar">
-            <div className="avatar-glow"></div>
-            <div className="avatar-circle">
-              <FaCode className="avatar-emoji" />
-            </div>
-          </div>
+           <div className="hero-avatar">
+             <div className="avatar-glow"></div>
+             <div className="avatar-circle">
+               <img
+                 src="/src/assets/images/avatar.jpeg"
+                 alt="Avatar"
+                 className="avatar-image"
+               />
+             </div>
+           </div>
         </div>
 
 
@@ -78,7 +85,7 @@ const About = () => {
                 key={index}
                 ref={cardRefs[index]}
                 className="timeline-card"
-                style={{ '--delay': `${index * 0.2}s` }}
+                style={{ '--delay': `${index * ANIMATION_DELAYS.MEDIUM}s` }}
               >
                  <div className="timeline-icon" style={{ backgroundColor: item.color }}>
                    {iconMap[item.icon]}
