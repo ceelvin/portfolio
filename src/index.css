@@ -17,12 +17,30 @@
 @layer base {
   html {
     font-family: "JetBrains Mono", monospace;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-gradient-to-br from-[#0d1b2a] to-[#1b263b] text-white;
+    opacity: 0;
+    animation: fadeInBody 0.8s ease-out 0.2s forwards;
+  }
+
+  body.loaded {
+    opacity: 1;
   }
 }
+
+@keyframes fadeInBody {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
 
 .main {
   position: relative;
@@ -42,7 +60,6 @@
   padding: 25vh 2rem 2rem 2rem;
 }
 
-/* General section styles - adjusted for portfolio wrapper */
 section {
   padding: 20px 40px;
   max-width: 1200px;
@@ -59,11 +76,10 @@ section {
   justify-content: center;
 }
 
-/* Portfolio Wrapper - Side-by-Side Layout */
 .portfolio-wrapper {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   position: relative;
   width: 100%;
@@ -118,17 +134,200 @@ section {
   }
 }
 
-/* Smooth scrolling target adjustments */
 .projects-section-wrapper,
 .skills-section-wrapper {
-  scroll-margin-top: 80px; /* Adjust based on your navbar height */
+  scroll-margin-top: 80px;
 }
 
-/* Ensure content doesn't overflow */
 .projects-section-wrapper > *,
 .skills-section-wrapper > * {
   width: 100%;
   box-sizing: border-box;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-left.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-right.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scale-in.animate {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.stagger-animation {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stagger-animation:nth-child(1) { animation-delay: 0.1s; }
+.stagger-animation:nth-child(2) { animation-delay: 0.2s; }
+.stagger-animation:nth-child(3) { animation-delay: 0.3s; }
+.stagger-animation:nth-child(4) { animation-delay: 0.4s; }
+.stagger-animation:nth-child(5) { animation-delay: 0.5s; }
+.stagger-animation:nth-child(6) { animation-delay: 0.6s; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(13, 27, 42, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #00d4ff, #9b59b6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #00d4ff, #7c3aed);
+}
+
+.page-transition {
+  transition: all 0.3s ease;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+*:focus {
+  outline: 2px solid #00d4ff;
+  outline-offset: 2px;
+}
+
+button:focus,
+a:focus {
+  outline: 2px solid #00d4ff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .contact {
@@ -140,11 +339,57 @@ section {
   justify-content: center;
 }
 
-/* Responsive adjustments for the portfolio sections */
 @media (min-width: 768px) {
   .projects-section-wrapper > section,
   .skills-section-wrapper > section {
-    padding: 0 !important; /* Override general section padding when side-by-side */
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .main {
+    min-height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .headliner {
+    min-height: 80vh;
+    padding: 15vh 1rem 2rem 1rem;
+  }
+
+  .about {
+    min-height: auto;
+    padding: 4rem 0;
+  }
+
+  .portfolio-wrapper {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem 1rem;
+  }
+
+  .projects-section-wrapper,
+  .skills-section-wrapper {
+    padding: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .portfolio-wrapper {
+    gap: 2rem;
+    padding: 2rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .project-card:hover,
+  .skills-category-box:hover {
+    transform: none;
+  }
+
+  .skill-item:hover {
+    transform: none;
+    background-color: rgba(96, 165, 250, 0.05);
   }
 }
 

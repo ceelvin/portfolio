@@ -19,9 +19,10 @@ const StarryBackground = () => {
     };
     let stars = [];
     let meteors = [];
-    const starCount = 250;
+    let nebulae = [];
+    let constellations = [];
 
-    // Spaceship
+
     let shipX = canvas.width / 2;
     let shipY = canvas.height / 2;
     let shipVX = 0;
@@ -30,11 +31,11 @@ const StarryBackground = () => {
     let isDocked = false;
     const shipSpeed = 0.5;
     const shipDamping = 0.95;
-    const minDistance = 50; // distance from mouse
-    const orbitSpeed = 0.02; // speed for circling
+    const minDistance = 50;
+    const orbitSpeed = 0.02;
     const stationaryThreshold = 5;
 
-    // Star class for background stars
+
     class Star {
       constructor() {
         this.x = Math.random() * canvas.width;
@@ -43,6 +44,7 @@ const StarryBackground = () => {
         this.speedX = (Math.random() - 0.5) * 0.1;
         this.speedY = (Math.random() - 0.5) * 0.1;
         this.brightness = Math.random() * 0.3 + 0.3;
+        this.color = Math.random() > 0.8 ? "#00d4ff" : "#ffffff";
       }
       update() {
         this.x += this.speedX;
@@ -63,7 +65,9 @@ const StarryBackground = () => {
         }
       }
       draw() {
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
+        const [r, g, b] =
+          this.color === "#00d4ff" ? [0, 212, 255] : [255, 255, 255];
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${this.brightness})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -72,17 +76,17 @@ const StarryBackground = () => {
 
     class Meteor {
       constructor() {
-        this.x = Math.random() * canvas.width; // Random x across canvas
-        this.y = Math.random() * canvas.height; // Random y across canvas
-        this.length = Math.random() * 30 + 20; // Length of meteor trail
-        this.speedX = (Math.random() - 0.5) * 4; // -2 to 2
-        this.speedY = (Math.random() - 0.5) * 6; // -3 to 3
-        this.opacity = 1; // Start fully opaque
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.length = Math.random() * 30 + 20;
+        this.speedX = (Math.random() - 0.5) * 4;
+        this.speedY = (Math.random() - 0.5) * 6;
+        this.opacity = 1;
       }
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        this.opacity -= 0.01; // Fade out
+        this.opacity -= 0.01;
       }
       draw() {
         ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
@@ -97,9 +101,246 @@ const StarryBackground = () => {
       }
     }
 
+    class Nebula {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 150 + 100;
+        this.opacity = Math.random() * 0.1 + 0.05;
+        this.color = Math.random() > 0.5 ? "#4a90e2" : "#9b59b6";
+        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        this.pulseOffset = Math.random() * Math.PI * 2;
+      }
+      update() {
+        this.pulseOffset += this.pulseSpeed;
+        this.opacity = Math.sin(this.pulseOffset) * 0.05 + 0.1;
+      }
+      draw() {
+        const gradient = ctx.createRadialGradient(
+          this.x,
+          this.y,
+          0,
+          this.x,
+          this.y,
+          this.radius,
+        );
+        const [r, g, b] =
+          this.color === "#4a90e2" ? [74, 144, 226] : [155, 89, 182];
+        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${this.opacity})`);
+        gradient.addColorStop(
+          0.5,
+          `rgba(${r}, ${g}, ${b}, ${this.opacity * 0.5})`,
+        );
+        gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    class Constellation {
+      constructor(isLibra = false) {
+        this.stars = [];
+        this.lines = [];
+        this.opacity = Math.random() * 0.3 + 0.2;
+        this.twinkleSpeed = Math.random() * 0.05 + 0.02;
+        this.twinkleOffset = Math.random() * Math.PI * 2;
+        this.isLibra = isLibra;
+
+        if (isLibra) {
+          this.createLibraConstellation();
+        } else {
+          this.createRandomConstellation();
+        }
+      }
+
+      createLibraConstellation() {
+
+
+        const centerX = canvas.width * 0.75;
+        const centerY = canvas.height * 0.4;
+        const scale = Math.min(canvas.width, canvas.height) * 0.15;
+
+
+        this.libraLabel = {
+          x: centerX,
+          y: centerY - scale * 0.8,
+          text: "♎ Libra",
+        };
+
+
+        this.stars = [
+
+          {
+            x: centerX - 0.3 * scale,
+            y: centerY - 0.3 * scale,
+            size: 1.7,
+            brightness: 0.9,
+          },
+
+          {
+            x: centerX - 0.02 * scale,
+            y: centerY - 0.6 * scale,
+            size: 3.8,
+            brightness: 1.0,
+          },
+
+          {
+            x: centerX + 0.4 * scale,
+            y: centerY - 0.2 * scale,
+            size: 1.7,
+            brightness: 0.5,
+          },
+
+          {
+            x: centerX + 0.2 * scale,
+            y: centerY + 0.3 * scale,
+            size: 1.7,
+            brightness: 0.7,
+          },
+
+          {
+            x: centerX - 0.3 * scale,
+            y: centerY + 0.6 * scale,
+            size: 1.7,
+            brightness: 0.5,
+          },
+        ];
+
+        this.lines = [
+          { start: this.stars[0], end: this.stars[1] },
+          { start: this.stars[1], end: this.stars[2] },
+          { start: this.stars[2], end: this.stars[0] },
+          { start: this.stars[2], end: this.stars[3] },
+          { start: this.stars[0], end: this.stars[4] },
+        ];
+
+
+        this.libraColor = "#FFD700";
+        this.opacity = 0.4;
+      }
+
+      createRandomConstellation() {
+
+        const starCount = Math.floor(Math.random() * 5) + 3;
+        for (let i = 0; i < starCount; i++) {
+          this.stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1,
+            brightness: Math.random() * 0.5 + 0.5,
+          });
+        }
+
+
+        for (let i = 0; i < this.stars.length - 1; i++) {
+          this.lines.push({
+            start: this.stars[i],
+            end: this.stars[i + 1],
+          });
+        }
+      }
+      update() {
+        this.twinkleOffset += this.twinkleSpeed;
+        this.opacity = Math.sin(this.twinkleOffset) * 0.1 + 0.3;
+      }
+      draw() {
+        if (this.isLibra) {
+
+
+          ctx.strokeStyle = `rgba(255, 215, 0, ${this.opacity * 0.8})`;
+          ctx.lineWidth = 2;
+          ctx.shadowColor = "#FFD700";
+          ctx.shadowBlur = 5;
+
+          this.lines.forEach((line) => {
+            ctx.beginPath();
+            ctx.moveTo(line.start.x, line.start.y);
+            ctx.lineTo(line.end.x, line.end.y);
+            ctx.stroke();
+          });
+
+
+          ctx.shadowBlur = 0;
+
+
+          this.stars.forEach((star) => {
+
+            ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity * 0.3})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
+            ctx.fill();
+
+
+            ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity * star.brightness})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+
+
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * 0.9})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+
+          if (this.libraLabel) {
+            ctx.save();
+            ctx.font = "16px Arial";
+            ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity * 0.8})`;
+            ctx.textAlign = "center";
+            ctx.fillText(
+              this.libraLabel.text,
+              this.libraLabel.x,
+              this.libraLabel.y,
+            );
+            ctx.restore();
+          }
+        } else {
+
+
+          ctx.strokeStyle = `rgba(173, 216, 230, ${this.opacity * 0.5})`;
+          ctx.lineWidth = 1;
+          this.lines.forEach((line) => {
+            ctx.beginPath();
+            ctx.moveTo(line.start.x, line.start.y);
+            ctx.lineTo(line.end.x, line.end.y);
+            ctx.stroke();
+          });
+
+
+          this.stars.forEach((star) => {
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        }
+      }
+    }
+
     function init() {
-      for (let i = 0; i < starCount; i++) {
+      const initialStarCount = window.innerWidth < 768 ? 100 : 200;
+      for (let i = 0; i < initialStarCount; i++) {
         stars.push(new Star());
+      }
+
+
+      const nebulaCount = window.innerWidth < 768 ? 2 : 4;
+      for (let i = 0; i < nebulaCount; i++) {
+        nebulae.push(new Nebula());
+      }
+
+
+      constellations.push(new Constellation(true)); 
+
+      
+      const additionalConstellationCount = window.innerWidth < 768 ? 0 : 2;
+      for (let i = 0; i < additionalConstellationCount; i++) {
+        constellations.push(new Constellation(false));
       }
 
       shipX = canvas.width / 2;
@@ -109,46 +350,58 @@ const StarryBackground = () => {
     }
 
     function animate() {
-      ctx.fillStyle = "#0a0a23"; // Dark blue background
+      ctx.fillStyle = "#0a0a23";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw and update stars
+
+      nebulae.forEach((nebula) => {
+        nebula.update();
+        nebula.draw();
+      });
+
+
       stars.forEach((star) => {
         star.update();
         star.draw();
       });
 
-      // Spawn meteors randomly (0.5% chance per frame)
+      
+      constellations.forEach((constellation) => {
+        constellation.update();
+        constellation.draw();
+      });
+
+      
       if (Math.random() < 0.005) {
         meteors.push(new Meteor());
       }
 
-      // Draw and update meteors
-      meteors = meteors.filter((meteor) => meteor.opacity > 0); // Remove faded meteors
+      
+      meteors = meteors.filter((meteor) => meteor.opacity > 0); 
       meteors.forEach((meteor) => {
         meteor.update();
         meteor.draw();
       });
 
-      // Update spaceship: fly towards mouse for 3 seconds, then dock and circle
+      
       if (mouse.x !== null && mouse.y !== null) {
-        // Check if mouse is stationary
+        
         let isStationary = false;
         if (mouse.lastX !== null && mouse.lastY !== null) {
           let dx = mouse.x - mouse.lastX;
           let dy = mouse.y - mouse.lastY;
           let mouseMoved = Math.sqrt(dx * dx + dy * dy) > 1;
           if (!mouseMoved) {
-            mouse.stationaryTime += 1 / 60; // Assuming 60 FPS
+            mouse.stationaryTime += 1 / 60; 
             if (mouse.stationaryTime >= stationaryThreshold) {
               isStationary = true;
             }
           } else {
             mouse.stationaryTime = 0;
-            isDocked = false; // Reset docking on movement
+            isDocked = false; 
           }
         } else {
-          // First time mouse is detected
+          
           mouse.lastX = mouse.x;
           mouse.lastY = mouse.y;
           mouse.stationaryTime = 0;
@@ -158,36 +411,36 @@ const StarryBackground = () => {
         mouse.lastX = mouse.x;
         mouse.lastY = mouse.y;
 
-        // Calculate direction to mouse
+        
         let dx = mouse.x - shipX;
         let dy = mouse.y - shipY;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
         if (isStationary && isDocked) {
-          // Circle around mouse at minDistance after 3 seconds stationary
+          
           orbitAngle += orbitSpeed;
           shipX = mouse.x + minDistance * Math.cos(orbitAngle);
           shipY = mouse.y + minDistance * Math.sin(orbitAngle);
-          // Reset velocity to prevent drift
+          
           shipVX = 0;
           shipVY = 0;
         } else {
-          // Chase mouse for first 3 seconds, then dock
+          
           if (!isDocked || !isStationary) {
             if (distance > minDistance) {
-              // Normalize and apply speed
+              
               shipVX += (dx / distance) * shipSpeed;
               shipVY += (dy / distance) * shipSpeed;
 
-              // Apply damping
+              
               shipVX *= shipDamping;
               shipVY *= shipDamping;
 
-              // Update position
+              
               shipX += shipVX;
               shipY += shipVY;
             } else {
-              // Inside minDistance, slow down and mark as docked
+              
               isDocked = true;
               shipVX *= shipDamping;
               shipVY *= shipDamping;
@@ -196,14 +449,14 @@ const StarryBackground = () => {
             }
           }
 
-          // Boundary check
+          
           if (shipX < 0) shipX = canvas.width;
           if (shipX > canvas.width) shipX = 0;
           if (shipY < 0) shipY = canvas.height;
           if (shipY > canvas.height) shipY = 0;
         }
       } else {
-        // If no mouse, slowly stop
+        
         shipVX *= shipDamping;
         shipVY *= shipDamping;
         shipX += shipVX;
@@ -212,27 +465,27 @@ const StarryBackground = () => {
         isDocked = false;
       }
 
-      // Draw spaceship with rotation towards mouse
+      
       if (mouse.x !== null && mouse.y !== null) {
         ctx.save();
         ctx.translate(shipX, shipY);
-        // Rotate based on direction to mouse, adjust by 90 degrees
+        
         let angle = Math.atan2(mouse.y - shipY, mouse.x - shipX) + Math.PI / 2;
         ctx.rotate(angle);
-        // Draw spaceship body (silver triangle, pointing up)
+        
         ctx.fillStyle = "silver";
         ctx.beginPath();
-        ctx.moveTo(0, -15); // Top point
-        ctx.lineTo(-10, 10); // Bottom left
-        ctx.lineTo(10, 10); // Bottom right
+        ctx.moveTo(0, -15); 
+        ctx.lineTo(-10, 10); 
+        ctx.lineTo(10, 10); 
         ctx.closePath();
         ctx.fill();
-        // Draw thruster (orange triangle, at bottom)
+        
         ctx.fillStyle = "orange";
         ctx.beginPath();
         ctx.moveTo(-5, 10);
         ctx.lineTo(5, 10);
-        ctx.lineTo(0, 25); // Extend thruster for effect
+        ctx.lineTo(0, 25); 
         ctx.closePath();
         ctx.fill();
         ctx.restore();
@@ -261,7 +514,32 @@ const StarryBackground = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       stars = [];
-      init();
+      nebulae = [];
+      constellations = [];
+      const newStarCount = window.innerWidth < 768 ? 100 : 200;
+      for (let i = 0; i < newStarCount; i++) {
+        stars.push(new Star());
+      }
+
+      
+      const nebulaCount = window.innerWidth < 768 ? 2 : 4;
+      for (let i = 0; i < nebulaCount; i++) {
+        nebulae.push(new Nebula());
+      }
+
+      
+      constellations.push(new Constellation(true)); 
+
+      
+      const additionalConstellationCount = window.innerWidth < 768 ? 0 : 2;
+      for (let i = 0; i < additionalConstellationCount; i++) {
+        constellations.push(new Constellation(false));
+      }
+
+      shipX = canvas.width / 2;
+      shipY = canvas.height / 2;
+      isDocked = false;
+      orbitAngle = 0;
     };
 
     window.addEventListener("mousemove", handleMouseMove);

@@ -1,4 +1,4 @@
-import icons from "../../assets";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Contact = () => {
   return (
@@ -8,30 +8,24 @@ const Contact = () => {
         Feel free to reach out via email or connect with me on social platforms.
       </p>
       <p className="text-base mb-6">Email: Celvin.Kuhn@gmail.com</p>
-      <div className="flex justify-center gap-6">
+      <div className="flex justify-center gap-6" role="list" aria-label="Social media links">
         <a
           href="https://github.com/ceelvin"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:opacity-80 transition-opacity"
+          aria-label="Visit my GitHub profile"
         >
-          <img
-            src={icons.Large.Light.Github}
-            alt="GitHub"
-            className="w-10 h-10"
-          />
+          <FaGithub className="w-10 h-10" />
         </a>
         <a
           href="https://linkedin.com/in/celvin-kuhn/"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:opacity-80 transition-opacity"
+          aria-label="Visit my LinkedIn profile"
         >
-          <img
-            src={icons.Large.Light.Linkedin}
-            alt="LinkedIn"
-            className="w-10 h-10"
-          />
+          <FaLinkedin className="w-10 h-10" />
         </a>
       </div>
     </div>

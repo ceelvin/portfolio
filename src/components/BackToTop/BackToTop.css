@@ -1,0 +1,51 @@
+.back-to-top-popup {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background: rgba(96, 165, 250, 0.9);
+  border: 2px solid #60a5fa;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.back-to-top-popup:hover {
+  background: #60a5fa;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(96, 165, 250, 0.4);
+}
+
+.back-to-top-popup:active {
+  transform: translateY(0);
+}
+
+
+@media (max-width: 768px) {
+  .back-to-top-popup {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+}
