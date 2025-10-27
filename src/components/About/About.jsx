@@ -41,10 +41,6 @@ const About = () => {
                 <span className="stat-number">3+</span>
                 <span className="stat-label">Projects</span>
               </div>
-              <div className="stat-item">
-                <span className="stat-number">∞</span>
-                <span className="stat-label">Learning</span>
-              </div>
             </div>
           </div>
            <div className="hero-avatar">

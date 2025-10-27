@@ -84,15 +84,6 @@ const Projects = () => {
              <FaArrowRight size={20} />
            </button>
         </div>
-
-        <div className="projects-cta">
-          <h3>Interested in working together?</h3>
-          <p>Let&apos;s create something amazing together</p>
-           <a href="#contact" className="cta-button">
-             Get In Touch
-             <FaArrowRight size={20} />
-           </a>
-        </div>
       </div>
     </section>
   );
