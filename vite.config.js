@@ -8,5 +8,9 @@ export default defineConfig(() => {
       outDir: 'build',
     },
     plugins: [react(), tailwindcss()],
+    server: {
+	port: 3000,
+	open: false,
+    },
   };
 });
