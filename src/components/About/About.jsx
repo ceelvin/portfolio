@@ -4,6 +4,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { journey } from "../../data/about";
 import { ANIMATION_DELAYS } from "../../constants";
 import { FaBolt, FaUsers, FaBriefcase, FaTrophy, FaGraduationCap, FaRocket } from "react-icons/fa";
+import avatarImage from "../../assets/images/avatar.jpeg";
 
 const iconMap = {
   bolt: <FaBolt />,
@@ -46,11 +47,11 @@ const About = () => {
            <div className="hero-avatar">
              <div className="avatar-glow"></div>
              <div className="avatar-circle">
-               <img
-                 src="/src/assets/images/avatar.jpeg"
-                 alt="Avatar"
-                 className="avatar-image"
-               />
+                <img
+                  src={avatarImage}
+                  alt="Avatar"
+                  className="avatar-image"
+                />
              </div>
            </div>
         </div>
