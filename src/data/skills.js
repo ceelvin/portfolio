@@ -1,38 +1,38 @@
-export const skills = [
+const skillsData = [
   // Frontend Skills
   {
     name: "React",
-    level: 78,
+    level: 50,
     icon: "react",
     category: "frontend",
   },
   {
     name: "Angular",
-    level: 92,
+    level: 75,
     icon: "angular",
     category: "frontend",
   },
   {
     name: "TypeScript",
-    level: 93,
+    level: 75,
     icon: "typescript",
     category: "frontend",
   },
   {
     name: "JavaScript",
-    level: 85,
+    level: 70,
     icon: "javascript",
     category: "frontend",
   },
   {
     name: "HTML/CSS",
-    level: 95,
+    level: 78,
     icon: "html5",
     category: "frontend",
   },
   {
     name: "Tailwind CSS",
-    level: 67,
+    level: 47,
     icon: "tailwind",
     category: "frontend",
   },
@@ -58,23 +58,25 @@ export const skills = [
   // Tools & Technologies
   {
     name: "Git",
-    level: 90,
+    level: 70,
     icon: "git",
     category: "tools",
   },
   {
     name: "GitHub",
-    level: 87,
+    level: 73,
     icon: "github",
     category: "tools",
   },
   {
     name: "CI/CD",
-    level: 85,
+    level: 57,
     icon: "cypress",
     category: "tools",
   },
 ];
+
+export const skills = skillsData.sort((a, b) => b.level - a.level);
 
 // Legacy exports for backward compatibility
 export const frontend = skills.filter(skill => skill.category === 'frontend');

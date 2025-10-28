@@ -45,7 +45,6 @@
 .main {
   position: relative;
   z-index: 2;
-  min-height: 200vh;
 }
 
 .headliner {

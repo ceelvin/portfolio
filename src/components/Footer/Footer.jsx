@@ -1,7 +1,9 @@
 import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
+  const location = useLocation();
 
   const copyEmail = () => {
     navigator.clipboard.writeText("Celvin.Kuhn@gmail.com");
@@ -77,20 +79,23 @@ const Footer = () => {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
+           </div>
+         </div>
 
-        <div className="footer-bottom">
+         <div className="footer-bottom">
           <div className="footer-divider"></div>
           <div className="footer-meta">
             <p>&copy; 2025 Celvin Kuhn. All rights reserved.</p>
-            <div className="footer-tech">
-              <span>Built with</span>
-              <span className="tech-highlight">React</span>
-              <span>&</span>
-              <span className="tech-highlight">Vite</span>
-            </div>
-            <p className="footer-update">Last updated: October 2025</p>
+             <div className="footer-tech">
+               <span>Built with</span>
+               <span className="tech-highlight">React</span>
+               <span>&</span>
+               <span className="tech-highlight">Vite</span>
+             </div>
+             {/* {location.pathname !== '/impressum' && ( */}
+             {/*   <Link to="/impressum" className="footer-link">Impressum</Link> */}
+             {/* )} */}
+             <p className="footer-update">Last updated: October 2025</p>
           </div>
         </div>
       </div>

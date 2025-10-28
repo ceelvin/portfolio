@@ -1,73 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import StarryBackground from "./components/Background/StarryBackground";
-import Navigation from "./components/Navigation/Navigation";
-import About from "./components/About/About";
-import Projects from "./components/Projects/Projects";
-import Footer from "./components/Footer/Footer";
-import BackToTop from "./components/BackToTop/BackToTop";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import App from "./App";
+// import ImpressumPage from "./components/ImpressumPage/ImpressumPage";
 import ErrorBoundary from "./components/common/ErrorBoundary";
+import ScrollToTop from "./components/common/ScrollToTop";
 import "./index.css";
-import Skills from "./components/Skills/Skills";
-import useIntersectionObserver from "./hooks/useIntersectionObserver";
-import { INTERSECTION_THRESHOLDS } from "./constants";
-
-
-const App = () => {
-  const aboutRef = React.useRef();
-  const projectsRef = React.useRef();
-  const skillsRef = React.useRef();
-
-  useIntersectionObserver(aboutRef, { threshold: INTERSECTION_THRESHOLDS.MEDIUM });
-  useIntersectionObserver(projectsRef, { threshold: INTERSECTION_THRESHOLDS.LOW });
-  useIntersectionObserver(skillsRef, { threshold: INTERSECTION_THRESHOLDS.LOW });
-
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.body.classList.add("loaded");
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <>
-      <StarryBackground />
-      <BackToTop />
-      <Navigation />
-      <main className="main">
-        <section
-          ref={aboutRef}
-          id="about"
-          className="about fade-in slide-in-left"
-        >
-          <About />
-        </section>
-
-        <div ref={projectsRef} className="portfolio-wrapper fade-in scale-in">
-          <section id="projects" className="projects-section-wrapper">
-            <Projects />
-          </section>
-          <section
-            ref={skillsRef}
-            id="skills"
-            className="skills-section-wrapper fade-in slide-in-right"
-          >
-            <Skills />
-          </section>
-        </div>
-
-        <Footer />
-      </main>
-    </>
-  );
-};
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <App />
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<App />} />
+          {/* <Route path="/impressum" element={<ImpressumPage />} /> */}
+        </Routes>
+      </Router>
     </ErrorBoundary>
   </React.StrictMode>,
 );

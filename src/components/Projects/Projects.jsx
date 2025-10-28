@@ -4,7 +4,7 @@ import { projects } from "../../data/projects";
 import FilterButtons from "../common/FilterButtons";
 import CardGrid from "../common/CardGrid";
 import { ANIMATION_DELAYS } from "../../constants";
-import { FaLayerGroup, FaGamepad, FaChartBar, FaArrowRight } from "react-icons/fa";
+import { FaLayerGroup, FaGamepad, FaChartBar } from "react-icons/fa";
 
 const Projects = () => {
   const [filter, setFilter] = useState("all");
@@ -73,17 +73,17 @@ const Projects = () => {
           </div>
         )}
 
-        <div className="projects-cta">
-          <h3>Interested in working together?</h3>
-          <p>Let&apos;s create something amazing together</p>
-           <button
-             onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
-             className="cta-button"
-           >
-             Get In Touch
-             <FaArrowRight size={20} />
-           </button>
-        </div>
+        {/* <div className="projects-cta"> */}
+        {/*   <h3>Interested in working together?</h3> */}
+        {/*   <p>Let&apos;s create something amazing together</p> */}
+        {/*    <button */}
+        {/*      onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} */}
+        {/*      className="cta-button" */}
+        {/*    > */}
+        {/*      Get In Touch */}
+        {/*      <FaArrowRight size={20} /> */}
+        {/*    </button> */}
+        {/* </div> */}
       </div>
     </section>
   );
