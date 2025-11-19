@@ -92,9 +92,9 @@ const Footer = () => {
                <span>&</span>
                <span className="tech-highlight">Vite</span>
              </div>
-             {/* {location.pathname !== '/impressum' && ( */}
-             {/*   <Link to="/impressum" className="footer-link">Impressum</Link> */}
-             {/* )} */}
+             {location.pathname !== '/impressum' && (
+               <Link to="/impressum" className="footer-link">Impressum</Link>
+             )}
              <p className="footer-update">Last updated: October 2025</p>
           </div>
         </div>

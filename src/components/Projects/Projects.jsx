@@ -4,7 +4,7 @@ import { projects } from "../../data/projects";
 import FilterButtons from "../common/FilterButtons";
 import CardGrid from "../common/CardGrid";
 import { ANIMATION_DELAYS } from "../../constants";
-import { FaLayerGroup, FaGamepad, FaChartBar } from "react-icons/fa";
+import { FaLayerGroup, FaChartBar } from "react-icons/fa";
 
 const Projects = () => {
   const [filter, setFilter] = useState("all");
@@ -20,7 +20,6 @@ const Projects = () => {
 
   const categories = [
     { id: "all", label: "All Projects", icon: <FaLayerGroup /> },
-    { id: "game", label: "Games", icon: <FaGamepad /> },
     { id: "data", label: "Data Viz", icon: <FaChartBar /> },
   ];
 
@@ -51,15 +50,20 @@ const Projects = () => {
             renderItem={(project) => (
               <article className={project.featured ? "featured" : ""}>
                 <div className="project-content">
-                  <h3 className="project-title">{project.title || 'Untitled Project'}</h3>
-                  <p className="project-description">{project.description || 'No description available'}</p>
+                  <h3 className="project-title">
+                    {project.title || "Untitled Project"}
+                  </h3>
+                  <p className="project-description">
+                    {project.description || "No description available"}
+                  </p>
 
                   <div className="project-tech">
-                    {Array.isArray(project.technologies) && project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="tech-tag">
-                        {tech}
-                      </span>
-                    ))}
+                    {Array.isArray(project.technologies) &&
+                      project.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className="tech-tag">
+                          {tech}
+                        </span>
+                      ))}
                   </div>
                 </div>
 
@@ -72,18 +76,6 @@ const Projects = () => {
             <p>No projects found for the selected category.</p>
           </div>
         )}
-
-        {/* <div className="projects-cta"> */}
-        {/*   <h3>Interested in working together?</h3> */}
-        {/*   <p>Let&apos;s create something amazing together</p> */}
-        {/*    <button */}
-        {/*      onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} */}
-        {/*      className="cta-button" */}
-        {/*    > */}
-        {/*      Get In Touch */}
-        {/*      <FaArrowRight size={20} /> */}
-        {/*    </button> */}
-        {/* </div> */}
       </div>
     </section>
   );

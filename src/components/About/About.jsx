@@ -3,16 +3,13 @@ import "./About.css";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { journey } from "../../data/about";
 import { ANIMATION_DELAYS } from "../../constants";
-import { FaBolt, FaUsers, FaBriefcase, FaTrophy, FaGraduationCap, FaRocket } from "react-icons/fa";
 import avatarImage from "../../assets/images/avatar.jpeg";
+import camelotIcon from "../../assets/images/camelot-itlab-logo.jpg";
+import accentureIcon from "../../assets/images/accenture-logo.png";
 
 const iconMap = {
-  bolt: <FaBolt />,
-  users: <FaUsers />,
-  briefcase: <FaBriefcase />,
-  trophy: <FaTrophy />,
-  graduation: <FaGraduationCap />,
-  rocket: <FaRocket />,
+  camelot: camelotIcon,
+  accenture: accentureIcon 
 };
 
 const About = () => {
@@ -21,8 +18,6 @@ const About = () => {
   );
 
   useIntersectionObserver(cardRefs, {}, 'visible');
-
-
 
   return (
     <section id="about" className="about-section">
@@ -82,17 +77,24 @@ const About = () => {
                 key={index}
                 ref={cardRefs[index]}
                 className="timeline-card"
-                style={{ '--delay': `${index * ANIMATION_DELAYS.MEDIUM}s` }}
+                style={{ "--delay": `${index * ANIMATION_DELAYS.MEDIUM}s` }}
               >
-                 <div className="timeline-icon" style={{ backgroundColor: item.color }}>
-                   {iconMap[item.icon]}
-                 </div>
+                 <img
+                   src={iconMap[item.icon]}
+                   alt={item.icon}
+                   className={`timeline-icon ${
+                     item.icon=== "camelot" ? "rounded-full" : ""
+                   } ${item.icon === "accenture" ? "rounded-none p-2" : ""}`}
+                   style={{ backgroundColor: item.color }}
+                 />
+
                 <div className="timeline-content">
-                  <div className="timeline-year">{item.year}</div>
-                  <h3 className="timeline-title">{item.title}</h3>
-                  <p className="timeline-description">{item.description}</p>
+                  <div className="timeline-year">{(item.year)}</div>
+                  <h3 className="timeline-title">{(item.title)}</h3>
+                  <p className="timeline-description">
+                    {(item.description)}
+                  </p>
                 </div>
-                <div className="timeline-connector"></div>
               </div>
             ))}
           </div>
