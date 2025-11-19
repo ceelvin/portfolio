@@ -1,51 +1,34 @@
 export const journey = [
   {
-    year: "Full-Stack Developer",
-    title: "Current Role",
-    description:
-      "Evolved into full-stack developer, tackling responsibilities across frontend and backend systems.",
-    icon: "bolt",
-    color: "#3498db",
+    yearKey: "2025 - Present",
+    titleKey: "Business Architecture Senior Analyst",
+    descriptionKey:
+      "Designing scalable enterprise architectures at Accenture, aligning IT with business goals to drive digital transformation and operational efficiency.",
+    icon: "accenture",
+    color: "",
   },
   {
-    year: "Frontend Developer",
-    title: "Team Collaboration",
-    description:
-      "Worked on web-based Supply Chain Management tool using Angular, TypeScript, HTML5, and CSS3.",
-    icon: "users",
-    color: "#27ae60",
+    yearKey: "2024 - 2025",
+    titleKey: "Software Developer",
+    descriptionKey:
+      "Engineered new features, resolved critical bugs, and maintained cross-platform applications at Camelot ITLab, enhancing system reliability and user experience.",
+    icon: "camelot",
+    color: "",
   },
   {
-    year: "Junior Developer",
-    title: "First Professional Role",
-    description:
-      "Owned a data visualization and processing app that streamlined internal workflows.",
-    icon: "briefcase",
-    color: "#f39c12",
+    yearKey: "2023 - 2024",
+    titleKey: "Junior Developer",
+    descriptionKey:
+      "Contributed to SCM application frontend development at Camelot ITLab, optimizing UI/UX for supply chain management and improving workflow efficiency.",
+    icon: "camelot",
+    color: "",
   },
   {
-    year: "2023",
-    title: "Apprenticeship Complete",
-    description:
-      "Completed software developer apprenticeship with hands-on skills in crafting robust applications.",
-    icon: "trophy",
-    color: "#e74c3c",
-  },
-  {
-    year: "Tech School",
-    title: "Foundation Building",
-    description:
-      "Dived into tech school to grasp the fundamentals of development and software engineering principles.",
-    icon: "graduation",
-    color: "#9b59b6",
-  },
-  {
-    year: "15 Years Old",
-    title: "The Beginning",
-    description:
-      "My coding adventure began, tinkering with code and discovering the magic of turning ideas into digital reality.",
-    icon: "rocket",
-    color: "#00d4ff",
+    yearKey: "2020 - 2023",
+    titleKey: "Trainee",
+    descriptionKey:
+      "Developed data model visualization tool and version control features at Camelot ITLab, enabling seamless data tracking and collaborative app management.",
+    icon: "camelot",
+    color: "",
   },
 ];
-
