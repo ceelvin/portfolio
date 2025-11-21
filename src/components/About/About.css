@@ -121,12 +121,7 @@
   border-color: rgba(0, 212, 255, 0.4);
 }
 
-.mission-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 1.5rem;
-}
+
 
 .mission-text {
   font-size: 1.125rem;
@@ -275,16 +270,7 @@
   line-height: 1.6;
 }
 
-.timeline-connector {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 20px;
-  height: 2px;
-  background: linear-gradient(90deg, #00d4ff, #9b59b6);
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
+
 
 @keyframes pulse {
   0%, 100% {
@@ -363,12 +349,7 @@
     margin-right: 0 !important;
   }
 
-  .timeline-connector {
-    left: 30px;
-    width: 2px;
-    height: 20px;
-    transform: translateX(-50%);
-  }
+
 
   .about-title {
     font-size: 2.5rem;
