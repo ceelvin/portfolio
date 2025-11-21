@@ -381,8 +381,7 @@
 
 @media (max-width: 480px) {
   .hero-stats {
-    flex-direction: column;
-    gap: 1rem;
+    gap: 3rem;
   }
 
   .stat-number {
@@ -391,10 +390,16 @@
 
   .timeline-card {
     margin-left: 1rem;
+    display: block;
   }
 
   .timeline-content {
     margin-left: 1rem !important;
     padding: 1rem;
   }
+
+  .timeline-icon {
+    left: -1rem;
+  }
+
 }

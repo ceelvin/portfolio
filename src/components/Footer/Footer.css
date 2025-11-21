@@ -409,10 +409,10 @@
 
   .social-links {
     gap: 1rem;
+    justify-content: center;
   }
 
   .social-link {
-    min-width: 70px;
     padding: 0.75rem;
   }
 
