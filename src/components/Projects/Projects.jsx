@@ -4,7 +4,7 @@ import { projects } from "../../data/projects";
 import FilterButtons from "../common/FilterButtons";
 import CardGrid from "../common/CardGrid";
 import { ANIMATION_DELAYS } from "../../constants";
-import { FaLayerGroup, FaChartBar } from "react-icons/fa";
+import { FaLayerGroup, FaChartBar, FaGithub, FaHandHoldingMedical } from "react-icons/fa";
 
 const Projects = () => {
   const [filter, setFilter] = useState("all");
@@ -21,6 +21,7 @@ const Projects = () => {
   const categories = [
     { id: "all", label: "All Projects", icon: <FaLayerGroup /> },
     { id: "data", label: "Data Viz", icon: <FaChartBar /> },
+    { id: "health", label: "Mental Health", icon: <FaHandHoldingMedical /> },
   ];
 
   return (
@@ -57,17 +58,28 @@ const Projects = () => {
                     {project.description || "No description available"}
                   </p>
 
-                  <div className="project-tech">
-                    {Array.isArray(project.technologies) &&
-                      project.technologies.map((tech, techIndex) => (
-                        <span key={techIndex} className="tech-tag">
-                          {tech}
-                        </span>
-                      ))}
+                  <div className="project-bottom">
+                    <div className="project-tech">
+                      {Array.isArray(project.technologies) &&
+                        project.technologies.map((tech, techIndex) => (
+                          <span key={techIndex} className="tech-tag">
+                            {tech}
+                          </span>
+                        ))}
+                    </div>
+                     {project.link !== "#" && (
+                       <a
+                         href={project.link}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="hover:opacity-80 transition-opacity h-fit w-fit"
+                         title="View on GitHub"
+                       >
+                         <FaGithub className="w-10 h-10" />
+                       </a>
+                     )}
                   </div>
                 </div>
-
-                <div className="project-border"></div>
               </article>
             )}
           />

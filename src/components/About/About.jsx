@@ -54,11 +54,7 @@ const About = () => {
 
         <div className="mission-section">
           <div className="mission-card">
-            <h2 className="mission-title">My Mission</h2>
-             <p className="mission-text">
-               What drives me? The thrill of solving complex puzzles through clean,
-               responsive interfaces or optimizing backend systems. I&apos;m passionate
-               about collaboration and pushing tech boundaries to create meaningful digital experiences.
+             <p className="mission-text">I'm a full-stack developer who loves building apps and websites that make life easier for people. What drives me? Figuring out tough problems by creating simple, user-friendly designs. I get excited about working with teams to try new things and build stuff that really helps and connects with folks.
              </p>
             <div className="mission-highlights">
               <span className="highlight-tag">Problem Solver</span>

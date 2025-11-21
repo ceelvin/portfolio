@@ -86,12 +86,6 @@ const Footer = () => {
           <div className="footer-divider"></div>
           <div className="footer-meta">
             <p>&copy; 2025 Celvin Kuhn. All rights reserved.</p>
-             <div className="footer-tech">
-               <span>Built with</span>
-               <span className="tech-highlight">React</span>
-               <span>&</span>
-               <span className="tech-highlight">Vite</span>
-             </div>
              {location.pathname !== '/impressum' && (
                <Link to="/impressum" className="footer-link">Impressum</Link>
              )}

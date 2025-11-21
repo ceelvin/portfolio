@@ -16,9 +16,10 @@ const ImpressumPage = () => {
             <h1 className="impressum-page-title">Impressum</h1>
             <div className="impressum-content">
               <h2>Angaben gemäß § 5 TMG</h2>
-              <p>Celvin Kuhn</p>
-              <p>Mannheim, Germany</p>
-              <p>Email: <a href="mailto:Celvin.Kuhn@gmail.com">Celvin.Kuhn@gmail.com</a></p>
+              <p>Hinter den Ortsgärten 2<br/>
+              68723 Oftersheim<br/>
+              Celvin Kuhn<br/>
+              Email: <a href="mailto:Celvin.Kuhn@gmail.com">Celvin.Kuhn@gmail.com</a></p>
 
               <h2>Haftung für Inhalte</h2>
               <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
