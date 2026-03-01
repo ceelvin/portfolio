@@ -6,7 +6,7 @@ const Footer = () => {
   const location = useLocation();
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("Celvin.Kuhn@gmail.com");
+    navigator.clipboard.writeText("contact@celvin.dev");
   };
 
 
@@ -25,7 +25,7 @@ const Footer = () => {
     },
     {
       name: "Email",
-      url: "mailto:Celvin.Kuhn@gmail.com",
+      url: "mailto:contact@celvin.dev",
       icon: <FaEnvelope className="social-icon" />,
       color: "#ea4335",
       action: copyEmail,
@@ -89,7 +89,7 @@ const Footer = () => {
              {location.pathname !== '/impressum' && (
                <Link to="/impressum" className="footer-link">Impressum</Link>
              )}
-             <p className="footer-update">Last updated: November 2025</p>
+             <p className="footer-update">Last updated: March 2026</p>
           </div>
         </div>
       </div>

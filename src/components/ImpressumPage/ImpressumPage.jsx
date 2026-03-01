@@ -19,7 +19,7 @@ const ImpressumPage = () => {
               <p>Hinter den Ortsgärten 2<br/>
               68723 Oftersheim<br/>
               Celvin Kuhn<br/>
-              Email: <a href="mailto:Celvin.Kuhn@gmail.com">Celvin.Kuhn@gmail.com</a></p>
+              Email: <a href="mailto:contact@celvin.dev">contact@celvin.dev</a></p>
 
               <h2>Haftung für Inhalte</h2>
               <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
