@@ -16,6 +16,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [loading, setLoading] = useState(false);
+  const mailtoHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent("Portfolio contact")}`;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -71,7 +72,7 @@ export function Contact() {
                   <div>
                     <p className="text-sm font-medium text-foreground">Email</p>
                     <a
-                      href={`mailto:${siteConfig.email}`}
+                      href={mailtoHref}
                       className="text-sm text-muted-foreground transition-colors hover:text-cyan-400"
                     >
                       {siteConfig.email}
@@ -198,30 +199,46 @@ export function Contact() {
                   )}
 
                   {status === "error" && (
-                    <p
+                    <div
                       role="alert"
-                      className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+                      className="space-y-4 rounded-lg border border-amber-400/40 bg-amber-400/10 px-4 py-4"
                     >
-                      Something went wrong. Please email me directly at{" "}
-                      <a
-                        href={`mailto:${siteConfig.email}`}
-                        className="underline"
+                      <p className="text-sm text-amber-200">
+                        The form couldn&apos;t send your message right now. Email
+                        me directly instead — I&apos;ll still get it.
+                      </p>
+                      <Button
+                        nativeButton={false}
+                        render={<a href={mailtoHref} />}
+                        size="lg"
+                        className="w-full bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400 sm:w-auto"
                       >
-                        {siteConfig.email}
-                      </a>
-                      .
-                    </p>
+                        <Mail className="size-4" />
+                        Email {siteConfig.email}
+                      </Button>
+                    </div>
                   )}
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={loading}
-                    className="w-full bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400 sm:w-auto"
-                  >
-                    <Send className="size-4" />
-                    {loading ? "Sending..." : "Send Message"}
-                  </Button>
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={loading}
+                      className="w-full bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400 sm:w-auto"
+                    >
+                      <Send className="size-4" />
+                      {loading ? "Sending..." : "Send Message"}
+                    </Button>
+                    <p className="text-center text-xs text-muted-foreground sm:text-right">
+                      Or{" "}
+                      <a
+                        href={mailtoHref}
+                        className="font-medium text-cyan-400 underline-offset-2 hover:underline"
+                      >
+                        email me directly
+                      </a>
+                    </p>
+                  </div>
                 </form>
               </CardContent>
             </Card>

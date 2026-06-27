@@ -8,6 +8,9 @@ export const siteConfig = {
   github: "https://github.com/ceelvin",
   linkedin: "https://linkedin.com/in/celvin-kuhn/",
   available: true,
+  siteUrl: "https://celvin.dev",
+  languages: ["German (native)", "English (fluent)"],
+  timezone: "Europe/Berlin (CET/CEST)",
 };
 
 export const navLinks = [
@@ -56,7 +59,12 @@ export const journey = [
     title: "Full Stack Developer",
     company: "Accenture",
     description:
-      "Building full-stack applications for client projects — consulting on customer needs and delivering tailored solutions. Currently developing a client-facing app end to end.",
+      "Building full-stack applications for client projects — consulting on customer needs and delivering tailored solutions.",
+    bullets: [
+      "Developing a client-facing app end to end",
+      "Translating business requirements into scalable solutions",
+      "Collaborating with cross-functional teams on delivery",
+    ],
   },
   {
     year: "2024 – 2025",
@@ -64,6 +72,11 @@ export const journey = [
     company: "Camelot ITLab",
     description:
       "Developed new features, resolved critical bugs, and maintained cross-platform applications.",
+    bullets: [
+      "Shipped features across frontend and backend stacks",
+      "Fixed production-critical bugs under tight timelines",
+      "Maintained and improved existing application modules",
+    ],
   },
   {
     year: "2023 – 2024",
@@ -71,6 +84,11 @@ export const journey = [
     company: "Camelot ITLab",
     description:
       "Contributed to SCM application frontend development, optimizing UI/UX for supply chain management.",
+    bullets: [
+      "Built and refined SCM dashboard UI components",
+      "Improved usability for supply chain workflows",
+      "Worked within an established Angular codebase",
+    ],
   },
   {
     year: "2020 – 2023",
@@ -78,8 +96,15 @@ export const journey = [
     company: "Camelot ITLab",
     description:
       "Built data model visualization tools and version control features for collaborative app management.",
+    bullets: [
+      "Created DataModel UI with interactive G6 graph visualizations",
+      "Developed version control features for collaborative editing",
+      "Learned full-stack development in a product team setting",
+    ],
   },
 ];
+
+export type ProjectBadge = "trainee" | "hackathon" | "private";
 
 export type Project = {
   title: string;
@@ -89,6 +114,9 @@ export type Project = {
   liveUrl: string | null;
   githubUrl: string | null;
   gradient: string;
+  badge: ProjectBadge;
+  /** Personal / hackathon work — excludes e.g. trainee or employer projects */
+  isPrivate: boolean;
 };
 
 export const projects: Project[] = [
@@ -101,6 +129,8 @@ export const projects: Project[] = [
     liveUrl: null,
     githubUrl: null,
     gradient: "from-cyan-500/20 to-blue-600/30",
+    badge: "trainee",
+    isPrivate: false,
   },
   {
     title: "MediMind",
@@ -111,6 +141,8 @@ export const projects: Project[] = [
     liveUrl: null,
     githubUrl: "https://github.com/perryrh0dan/healthcare_hackathon_2025",
     gradient: "from-emerald-500/20 to-cyan-600/30",
+    badge: "hackathon",
+    isPrivate: true,
   },
   {
     title: "Voidlights",
@@ -121,8 +153,22 @@ export const projects: Project[] = [
     liveUrl: null,
     githubUrl: null,
     gradient: "from-fuchsia-500/20 to-violet-600/30",
+    badge: "hackathon",
+    isPrivate: true,
   },
 ];
+
+export const projectBadgeLabels: Record<ProjectBadge, string> = {
+  trainee: "Trainee",
+  hackathon: "Hackathon",
+  private: "Private",
+};
+
+export const projectBadgeStyles: Record<ProjectBadge, string> = {
+  trainee: "border-blue-400/40 bg-blue-400/10 text-blue-300",
+  hackathon: "border-fuchsia-400/40 bg-fuchsia-400/10 text-fuchsia-300",
+  private: "border-amber-400/40 bg-amber-400/10 text-amber-300",
+};
 
 export const bio = {
   summary:
@@ -131,6 +177,10 @@ export const bio = {
   stats: [
     { value: "5+", label: "Years Coding" },
     { value: "22", label: "Technologies" },
-    { value: "3", label: "Projects" },
+    { value: String(projects.length), label: "Projects" },
+    {
+      value: String(projects.filter((p) => p.isPrivate).length),
+      label: "Private Projects",
+    },
   ],
 };

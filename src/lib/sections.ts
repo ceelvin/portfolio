@@ -7,7 +7,7 @@ export function sectionToPath(section: SectionId): string {
 }
 
 export function pathToSection(pathname: string): SectionId {
-  const segment = pathname === "/" ? "home" : pathname.replace(/^\//, "");
+  const segment = pathname === "/" ? "home" : pathname.replace(/^\//, "").split("/")[0];
   if (isValidSection(segment)) return segment;
   return "home";
 }
@@ -18,6 +18,6 @@ export function isValidSection(value: string | undefined): value is SectionId {
 
 export function hrefToSectionId(href: string): SectionId {
   if (href === "/" || href === "") return "home";
-  const segment = href.replace(/^\//, "").replace(/^#/, "");
+  const segment = href.replace(/^\//, "").replace(/^#/, "").split("/")[0];
   return isValidSection(segment) ? segment : "home";
 }

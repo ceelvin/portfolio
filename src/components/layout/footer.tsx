@@ -24,7 +24,7 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
             <Link
               href={siteConfig.github}
               target="_blank"

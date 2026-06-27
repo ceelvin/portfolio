@@ -20,6 +20,15 @@ interface ShipState {
   isDocked: boolean;
 }
 
+export interface ShipColors {
+  body: string;
+  bodyDark: string;
+  accent: string;
+  window: string;
+  flame: string;
+  flameCore: string;
+}
+
 const config = {
   speed: 0.5,
   damping: 0.95,
@@ -121,14 +130,16 @@ export function useMouseShip() {
     (
       ctx: CanvasRenderingContext2D,
       mouse: MouseState,
-      colors: { body: string; flame: string } = {
-        body: "silver",
-        flame: "orange",
-      }
+      colors: ShipColors
     ) => {
-    const ship = shipRef.current;
+      const ship = shipRef.current;
 
-    if (mouse.x !== null && mouse.y !== null) {
+      if (mouse.x === null || mouse.y === null) return;
+
+      const speed = Math.sqrt(ship.vx * ship.vx + ship.vy * ship.vy);
+      const flameFlicker = 1 + Math.sin(performance.now() * 0.02) * 0.15;
+      const flameLength = (10 + speed * 4) * flameFlicker;
+
       ctx.save();
       ctx.translate(ship.x, ship.y);
 
@@ -136,26 +147,81 @@ export function useMouseShip() {
         Math.atan2(mouse.y - ship.y, mouse.x - ship.x) + Math.PI / 2;
       ctx.rotate(angle);
 
+      // Soft glow
+      ctx.shadowColor = colors.accent;
+      ctx.shadowBlur = 14;
+
+      // Main fuselage (matches favicon silhouette)
       ctx.fillStyle = colors.body;
       ctx.beginPath();
-      ctx.moveTo(0, -15);
-      ctx.lineTo(-10, 10);
-      ctx.lineTo(10, 10);
+      ctx.moveTo(0, -18);
+      ctx.lineTo(-11, 14);
+      ctx.lineTo(0, 10);
+      ctx.lineTo(11, 14);
       ctx.closePath();
       ctx.fill();
 
-      ctx.fillStyle = colors.flame;
+      ctx.shadowBlur = 0;
+
+      // Side fin accents
+      ctx.fillStyle = colors.bodyDark;
       ctx.beginPath();
-      ctx.moveTo(-5, 10);
-      ctx.lineTo(5, 10);
-      ctx.lineTo(0, 25);
+      ctx.moveTo(-11, 14);
+      ctx.lineTo(-14, 18);
+      ctx.lineTo(-8, 12);
       ctx.closePath();
       ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(11, 14);
+      ctx.lineTo(14, 18);
+      ctx.lineTo(8, 12);
+      ctx.closePath();
+      ctx.fill();
+
+      // Cockpit window
+      ctx.fillStyle = colors.window;
+      ctx.beginPath();
+      ctx.arc(0, -4, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = colors.accent;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Engine nozzle
+      ctx.fillStyle = colors.bodyDark;
+      ctx.fillRect(-4, 10, 8, 3);
+
+      // Flame — layered for depth
+      const flameGradient = ctx.createLinearGradient(0, 13, 0, 13 + flameLength);
+      flameGradient.addColorStop(0, colors.flameCore);
+      flameGradient.addColorStop(0.45, colors.flame);
+      flameGradient.addColorStop(1, "rgba(249, 115, 22, 0)");
+
+      ctx.fillStyle = flameGradient;
+      ctx.beginPath();
+      ctx.moveTo(-4.5, 13);
+      ctx.lineTo(4.5, 13);
+      ctx.lineTo(0, 13 + flameLength);
+      ctx.closePath();
+      ctx.fill();
+
+      // Inner flame core
+      ctx.fillStyle = colors.flameCore;
+      ctx.globalAlpha = 0.85;
+      ctx.beginPath();
+      ctx.moveTo(-2, 13);
+      ctx.lineTo(2, 13);
+      ctx.lineTo(0, 13 + flameLength * 0.55);
+      ctx.closePath();
+      ctx.fill();
+      ctx.globalAlpha = 1;
 
       ctx.restore();
-    }
-  },
-  []);
+    },
+    []
+  );
 
   return { initializeShip, updateShip, drawShip };
 }

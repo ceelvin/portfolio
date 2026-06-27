@@ -57,7 +57,7 @@ export function About() {
               ))}
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-4">
+            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
               {bio.stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -126,9 +126,7 @@ export function About() {
                     >
                       {skill.name}
                       {skill.proficiency === "learning" && (
-                        <span className="ml-1 text-[10px] opacity-70">
-                          ·
-                        </span>
+                        <span className="ml-1 text-[10px] opacity-70">·</span>
                       )}
                     </Badge>
                   </motion.div>
@@ -148,7 +146,7 @@ export function About() {
                 const isOpen = openJourney === i;
                 return (
                   <motion.div
-                    key={item.title}
+                    key={`${item.title}-${item.year}`}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -190,14 +188,27 @@ export function About() {
                     </button>
                     <AnimatePresence>
                       {isOpen && (
-                        <motion.p
+                        <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          className="overflow-hidden pl-0 text-sm leading-relaxed text-muted-foreground"
+                          className="overflow-hidden"
                         >
-                          <span className="block pb-4 pt-1">{item.description}</span>
-                        </motion.p>
+                          <p className="pb-2 pt-1 text-sm leading-relaxed text-muted-foreground">
+                            {item.description}
+                          </p>
+                          <ul className="space-y-1.5 pb-4">
+                            {item.bullets.map((bullet) => (
+                              <li
+                                key={bullet}
+                                className="flex gap-2 text-sm text-muted-foreground"
+                              >
+                                <span className="text-cyan-400">▸</span>
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
                       )}
                     </AnimatePresence>
                   </motion.div>

@@ -34,17 +34,28 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.github }],
   creator: siteConfig.name,
+  metadataBase: new URL(siteConfig.siteUrl),
   openGraph: {
     type: "website",
     locale: "en_US",
+    url: siteConfig.siteUrl,
     title: `${siteConfig.name} | ${siteConfig.title}`,
     description: siteConfig.tagline,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: "/images/profile-picture.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — ${siteConfig.title}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} | ${siteConfig.title}`,
     description: siteConfig.tagline,
+    images: ["/images/profile-picture.png"],
   },
   robots: {
     index: true,
@@ -72,7 +83,6 @@ export default function RootLayout({
         <AppProviders>
           <Link
             href="/"
-            scroll={false}
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-cyan-500 focus:px-4 focus:py-2 focus:text-navy-950 focus:outline-none"
           >
             Skip to content

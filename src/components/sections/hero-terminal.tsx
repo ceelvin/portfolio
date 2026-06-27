@@ -7,13 +7,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/data/site";
 import { useSectionNavigation } from "@/hooks/use-section-navigation";
 import { runTerminalCommand } from "@/lib/terminal-commands";
-import { isValidSection } from "@/lib/sections";
 
 const bootLines = [
   { prompt: "$", command: "whoami", output: siteConfig.name },
-  { prompt: "$", command: "cat role.txt", output: "Full Stack Developer @ Accenture" },
+  {
+    prompt: "$",
+    command: "cat role.txt",
+    output: "Full Stack Developer @ Accenture",
+  },
   { prompt: "$", command: "echo $LOCATION", output: siteConfig.location },
-  { prompt: "$", command: "npm run status", output: "● Available for new opportunities" },
+  {
+    prompt: "$",
+    command: "npm run status",
+    output: "● Available for new opportunities",
+  },
 ];
 
 interface HistoryEntry {
@@ -64,9 +71,7 @@ export function HeroSidePanel() {
 
   useEffect(() => {
     const focusTerminal = () => {
-      document
-        .querySelector("#home")
-        ?.scrollIntoView({ behavior: "smooth" });
+      document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" });
       setTimeout(() => inputRef.current?.focus(), 300);
     };
     window.addEventListener("focus-terminal", focusTerminal);
@@ -80,11 +85,7 @@ export function HeroSidePanel() {
 
       const output = runTerminalCommand(
         command,
-        (section) => {
-          if (isValidSection(section)) {
-            navigateToSection(section);
-          }
-        },
+        navigateToSection,
         () => setTheme(resolvedTheme === "dark" ? "light" : "dark")
       );
 
@@ -127,14 +128,17 @@ export function HeroSidePanel() {
         ref={scrollRef}
         className="max-h-72 space-y-2 overflow-y-auto p-4 font-mono text-sm leading-relaxed"
       >
-        {bootLines.slice(0, bootComplete ? bootLines.length : bootIndex).map((line, i) => (
-          <div key={`boot-${i}`}>
-            <p className="text-cyan-400/90">
-              <span className="text-emerald-400">{line.prompt}</span> {line.command}
-            </p>
-            <p className="pl-4 text-muted-foreground">{line.output}</p>
-          </div>
-        ))}
+        {bootLines
+          .slice(0, bootComplete ? bootLines.length : bootIndex)
+          .map((line, i) => (
+            <div key={`boot-${i}`}>
+              <p className="text-cyan-400/90">
+                <span className="text-emerald-400">{line.prompt}</span>{" "}
+                {line.command}
+              </p>
+              <p className="pl-4 text-muted-foreground">{line.output}</p>
+            </div>
+          ))}
 
         {isBooting && (
           <p className="text-cyan-400/90">

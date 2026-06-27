@@ -30,6 +30,7 @@ export function PortfolioPage() {
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
+
       document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
     });
   }, [pathname]);

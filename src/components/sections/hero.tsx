@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Clock, Languages } from "lucide-react";
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
@@ -62,6 +62,22 @@ export function Hero() {
           >
             {siteConfig.tagline}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55 }}
+            className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground"
+          >
+            <span className="inline-flex items-center gap-1.5">
+              <Languages className="size-3.5 text-cyan-400/80" aria-hidden="true" />
+              {siteConfig.languages.join(" · ")}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="size-3.5 text-cyan-400/80" aria-hidden="true" />
+              {siteConfig.timezone}
+            </span>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

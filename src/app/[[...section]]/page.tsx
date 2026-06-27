@@ -9,14 +9,13 @@ export default async function Page({
 }) {
   const { section } = await params;
 
-  if (section && section.length > 1) {
-    notFound();
+  if (!section || section.length === 0) {
+    return <PortfolioPage />;
   }
 
-  const segment = section?.[0];
-  if (segment && !isValidSection(segment)) {
-    notFound();
+  if (section.length === 1 && isValidSection(section[0])) {
+    return <PortfolioPage />;
   }
 
-  return <PortfolioPage />;
+  notFound();
 }

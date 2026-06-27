@@ -24,7 +24,11 @@ type BackgroundPalette = {
   constellationStar: string;
   meteorStroke: string;
   shipBody: string;
+  shipBodyDark: string;
+  shipAccent: string;
+  shipWindow: string;
   shipFlame: string;
+  shipFlameCore: string;
   starBrightnessMin: number;
   starBrightnessMax: number;
 };
@@ -40,8 +44,12 @@ const palettes: Record<"dark" | "light", BackgroundPalette> = {
     constellationStroke: "173, 216, 230",
     constellationStar: "255, 255, 255",
     meteorStroke: "255, 255, 255",
-    shipBody: "silver",
-    shipFlame: "orange",
+    shipBody: "#22d3ee",
+    shipBodyDark: "#0891b2",
+    shipAccent: "#67e8f9",
+    shipWindow: "#0a0a23",
+    shipFlame: "#f97316",
+    shipFlameCore: "#fbbf24",
     starBrightnessMin: 0.3,
     starBrightnessMax: 1,
   },
@@ -55,8 +63,12 @@ const palettes: Record<"dark" | "light", BackgroundPalette> = {
     constellationStroke: "6, 182, 212",
     constellationStar: "100, 116, 139",
     meteorStroke: "6, 182, 212",
-    shipBody: "#475569",
-    shipFlame: "#f97316",
+    shipBody: "#06b6d4",
+    shipBodyDark: "#0e7490",
+    shipAccent: "#22d3ee",
+    shipWindow: "#f1f5f9",
+    shipFlame: "#ea580c",
+    shipFlameCore: "#f59e0b",
     starBrightnessMin: 0.2,
     starBrightnessMax: 0.75,
   },
@@ -68,16 +80,58 @@ function hexToRgb(hex: string): [number, number, number] {
   return [(value >> 16) & 255, (value >> 8) & 255, value & 255];
 }
 
+function StaticStarryBackground({ palette }: { palette: BackgroundPalette }) {
+  const [r1, g1, b1] = hexToRgb(palette.nebulaColors[0]);
+  const [r2, g2, b2] = hexToRgb(palette.nebulaColors[1]);
+  const [ar, ag, ab] = palette.starAccentRgb;
+
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full"
+      style={{
+        background: `
+          radial-gradient(ellipse at 20% 30%, rgba(${r1}, ${g1}, ${b1}, 0.18) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 70%, rgba(${r2}, ${g2}, ${b2}, 0.18) 0%, transparent 50%),
+          radial-gradient(circle at 15% 25%, rgba(${ar}, ${ag}, ${ab}, 0.35) 0, transparent 2px),
+          radial-gradient(circle at 85% 15%, rgba(${ar}, ${ag}, ${ab}, 0.25) 0, transparent 1.5px),
+          radial-gradient(circle at 45% 60%, rgba(255, 255, 255, 0.2) 0, transparent 1px),
+          radial-gradient(circle at 70% 45%, rgba(255, 255, 255, 0.15) 0, transparent 1px),
+          radial-gradient(circle at 25% 80%, rgba(255, 255, 255, 0.2) 0, transparent 1.5px),
+          ${palette.background}`,
+      }}
+    />
+  );
+}
+
 export function StarryBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { initializeShip, updateShip, drawShip } = useMouseShip();
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [useStaticBackground, setUseStaticBackground] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    if (!mounted) return;
+    const motionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobileMedia = window.matchMedia("(max-width: 767px)");
+
+    const update = () => {
+      setUseStaticBackground(motionMedia.matches || mobileMedia.matches);
+    };
+
+    update();
+    motionMedia.addEventListener("change", update);
+    mobileMedia.addEventListener("change", update);
+    return () => {
+      motionMedia.removeEventListener("change", update);
+      mobileMedia.removeEventListener("change", update);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || useStaticBackground) return;
 
     const canvasEl = canvasRef.current;
     if (!canvasEl) return;
@@ -380,7 +434,11 @@ export function StarryBackground() {
       updateShip(mouse, canvas);
       drawShip(ctx, mouse, {
         body: palette.shipBody,
+        bodyDark: palette.shipBodyDark,
+        accent: palette.shipAccent,
+        window: palette.shipWindow,
         flame: palette.shipFlame,
+        flameCore: palette.shipFlameCore,
       });
 
       animationId = requestAnimationFrame(animate);
@@ -419,10 +477,16 @@ export function StarryBackground() {
       window.removeEventListener("mouseout", handleMouseOut);
       window.removeEventListener("resize", handleResize);
     };
-  }, [mounted, resolvedTheme, drawShip, initializeShip, updateShip]);
+  }, [mounted, useStaticBackground, resolvedTheme, drawShip, initializeShip, updateShip]);
 
   if (!mounted) {
     return null;
+  }
+
+  const palette = palettes[resolvedTheme === "light" ? "light" : "dark"];
+
+  if (useStaticBackground) {
+    return <StaticStarryBackground palette={palette} />;
   }
 
   return (
