@@ -10,7 +10,7 @@ Live site content covers hero, about, projects, and contact — with a space-the
 - **Hero** — intro, CTAs, and an interactive boot terminal with custom commands
 - **About** — bio, filterable skills (core vs. learning), expandable career timeline
 - **Projects** — filterable project cards with cover images and tech tags
-- **Contact** — form with API route (`/api/contact`)
+- **Contact** — mailto form (opens the visitor's email client with a pre-filled message)
 - **Starry background** — canvas animation with mouse-following ship (dark & light mode)
 - **Vim keybindings** — `j`/`k`, `gg`, `G`, `gh`/`ga`/`gp`/`gc`, `?` for help
 - **Theme toggle** — dark (default) and light mode
@@ -66,7 +66,7 @@ npm run dev:clean
 
 ```
 src/
-├── app/                  # Next.js App Router (layout, page, API routes)
+├── app/                  # Next.js App Router (layout, catch-all section routes)
 ├── components/
 │   ├── background/       # Starry canvas background
 │   ├── interactive/      # Vim keybindings, scroll UI
@@ -76,8 +76,8 @@ src/
 │   └── ui/               # shadcn/ui primitives
 ├── data/
 │   └── site.ts           # All site content (config, skills, projects, journey)
-├── hooks/
-└── lib/                  # Terminal commands, utilities
+├── hooks/                # Section navigation, vim keys, active section, background ship
+└── lib/                  # Section routing, terminal commands, utilities
 public/
 └── images/               # Profile & project images
 ```
@@ -88,13 +88,14 @@ Most content lives in a single file:
 
 **`src/data/site.ts`**
 
-- `siteConfig` — name, title, email, social links, resume URL
+- `siteConfig` — name, title, email, social links, availability flag
+- `navLinks` — navbar section links
 - `skills` — technologies with `core` / `learning` proficiency
 - `journey` — work history timeline
 - `projects` — portfolio entries (title, description, tech, image, links)
 - `bio` — summary, highlights, stats
 
-Add a resume PDF at `public/resume.pdf` for the download button to work.
+Section URLs map to scroll targets on the single-page layout (`/`, `/about`, `/projects`, `/contact`).
 
 ## Production
 
