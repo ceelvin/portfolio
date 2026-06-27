@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Download } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
@@ -76,18 +76,6 @@ export function Hero() {
               className="bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400"
             >
               View My Work
-            </Button>
-            <Button
-              nativeButton={false}
-              render={
-                <a href={siteConfig.resumeUrl} download="Celvin-Kuhn-Resume.pdf" />
-              }
-              variant="outline"
-              size="lg"
-              className="border-cyan-400/30 hover:border-cyan-400/60 hover:bg-cyan-400/5"
-            >
-              <Download className="size-4" />
-              Download Resume
             </Button>
           </motion.div>
 

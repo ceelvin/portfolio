@@ -7,7 +7,6 @@ export const siteConfig = {
   location: "Mannheim, Germany",
   github: "https://github.com/ceelvin",
   linkedin: "https://linkedin.com/in/celvin-kuhn/",
-  resumeUrl: "/resume.pdf",
   available: true,
 };
 
