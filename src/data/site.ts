@@ -13,6 +13,8 @@ export const siteConfig = {
   timezone: "Europe/Berlin (CET/CEST)",
 };
 
+export const siteTitle = `${siteConfig.name} | ${siteConfig.title}`;
+
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },

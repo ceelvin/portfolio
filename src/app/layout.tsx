@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Inter, Space_Grotesk } from "next/font/google";
 import AppProviders from "@/components/providers/app-providers";
-import { siteConfig } from "@/data/site";
+import { siteConfig, siteTitle } from "@/data/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -19,7 +19,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} | ${siteConfig.title}`,
+    default: siteTitle,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.tagline,
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteConfig.siteUrl,
-    title: `${siteConfig.name} | ${siteConfig.title}`,
+    title: siteTitle,
     description: siteConfig.tagline,
     siteName: siteConfig.name,
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | ${siteConfig.title}`,
+    title: siteTitle,
     description: siteConfig.tagline,
     images: ["/images/profile-picture.png"],
   },
