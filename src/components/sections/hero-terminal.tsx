@@ -5,7 +5,9 @@ import { Terminal } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/data/site";
+import { useSectionNavigation } from "@/hooks/use-section-navigation";
 import { runTerminalCommand } from "@/lib/terminal-commands";
+import { isValidSection } from "@/lib/sections";
 
 const bootLines = [
   { prompt: "$", command: "whoami", output: siteConfig.name },
@@ -28,6 +30,7 @@ export function HeroSidePanel() {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { setTheme, resolvedTheme } = useTheme();
+  const { navigateToSection } = useSectionNavigation();
 
   const currentBootLine = bootLines[bootIndex];
   const fullBootText = currentBootLine
@@ -77,7 +80,11 @@ export function HeroSidePanel() {
 
       const output = runTerminalCommand(
         command,
-        (hash) => document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" }),
+        (section) => {
+          if (isValidSection(section)) {
+            navigateToSection(section);
+          }
+        },
         () => setTheme(resolvedTheme === "dark" ? "light" : "dark")
       );
 
@@ -88,7 +95,7 @@ export function HeroSidePanel() {
       }
       setInput("");
     },
-    [resolvedTheme, setTheme]
+    [navigateToSection, resolvedTheme, setTheme]
   );
 
   return (

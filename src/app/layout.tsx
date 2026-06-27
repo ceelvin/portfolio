@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Inter, Space_Grotesk } from "next/font/google";
 import AppProviders from "@/components/providers/app-providers";
 import { siteConfig } from "@/data/site";
@@ -69,12 +70,13 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} min-h-screen font-sans antialiased`}
       >
         <AppProviders>
-          <a
-            href="#home"
+          <Link
+            href="/"
+            scroll={false}
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-cyan-500 focus:px-4 focus:py-2 focus:text-navy-950 focus:outline-none"
           >
             Skip to content
-          </a>
+          </Link>
           {children}
         </AppProviders>
       </body>

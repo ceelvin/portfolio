@@ -2,7 +2,7 @@ import { bio, projects, skills, siteConfig } from "@/data/site";
 
 export function runTerminalCommand(
   input: string,
-  onNavigate?: (hash: string) => void,
+  onNavigate?: (section: string) => void,
   onThemeToggle?: () => void
 ): string[] {
   const trimmed = input.trim().toLowerCase();
@@ -54,8 +54,10 @@ export function runTerminalCommand(
       if (!target || !valid.includes(target)) {
         return [`Unknown section. Try: ${valid.join(", ")}`];
       }
-      onNavigate?.(`#${target}`);
-      return [`Navigating to #${target}...`];
+      onNavigate?.(target);
+      return [
+        `Navigating to ${target === "home" ? "/" : `/${target}`}...`,
+      ];
     }
 
     case "theme":

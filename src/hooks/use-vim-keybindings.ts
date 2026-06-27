@@ -1,12 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useSectionNavigation } from "@/hooks/use-section-navigation";
+import { type SectionId } from "@/lib/sections";
 
-const SECTIONS: Record<string, string> = {
-  h: "#home",
-  a: "#about",
-  p: "#projects",
-  c: "#contact",
+const SECTIONS: Record<string, SectionId> = {
+  h: "home",
+  a: "about",
+  p: "projects",
+  c: "contact",
 };
 
 function isTypingTarget(target: EventTarget | null) {
@@ -20,11 +22,8 @@ function isTypingTarget(target: EventTarget | null) {
   );
 }
 
-function scrollToSection(hash: string) {
-  document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-}
-
 export function useVimKeybindings() {
+  const { navigateToSection } = useSectionNavigation();
   const [helpOpen, setHelpOpen] = useState(false);
   const [pendingG, setPendingG] = useState(false);
   const [statusLine, setStatusLine] = useState<string | null>(null);
@@ -77,8 +76,8 @@ export function useVimKeybindings() {
         setPendingG(false);
         const section = SECTIONS[e.key];
         if (section) {
-          scrollToSection(section);
-          flashStatus(`g${e.key} → ${section}`);
+          navigateToSection(section);
+          flashStatus(`g${e.key} → /${section === "home" ? "" : section}`);
         } else {
           flashStatus(`g${e.key} → unknown`);
         }
@@ -130,7 +129,7 @@ export function useVimKeybindings() {
       window.removeEventListener("keydown", onKeyDown);
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
     };
-  }, [helpOpen, pendingG, flashStatus]);
+  }, [helpOpen, pendingG, flashStatus, navigateToSection]);
 
   return { helpOpen, setHelpOpen, statusLine };
 }

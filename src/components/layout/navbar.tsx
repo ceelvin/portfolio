@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { navLinks, siteConfig } from "@/data/site";
+import { hrefToSectionId } from "@/lib/sections";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +32,8 @@ export function Navbar() {
         aria-label="Main navigation"
       >
         <Link
-          href="#home"
+          href="/"
+          scroll={false}
           className="font-heading text-lg font-bold tracking-tight"
         >
           <span className="text-foreground">{siteConfig.name.split(" ")[0]}</span>{" "}
@@ -40,12 +42,13 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
-            const id = link.href.replace("#", "");
+            const id = hrefToSectionId(link.href);
             const isActive = activeSection === id;
             return (
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  scroll={false}
                   className={cn(
                     "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
                     isActive
@@ -87,12 +90,13 @@ export function Navbar() {
               </SheetHeader>
               <ul className="mt-6 flex flex-col gap-1">
                 {navLinks.map((link) => {
-                  const id = link.href.replace("#", "");
+                  const id = hrefToSectionId(link.href);
                   const isActive = activeSection === id;
                   return (
                     <li key={link.href}>
                       <Link
                         href={link.href}
+                        scroll={false}
                         onClick={handleNavClick}
                         className={cn(
                           "block rounded-lg px-4 py-3 text-base font-medium transition-colors",

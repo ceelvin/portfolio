@@ -71,7 +71,7 @@ export function Hero() {
           >
             <Button
               nativeButton={false}
-              render={<Link href="#projects" />}
+              render={<Link href="/projects" scroll={false} />}
               size="lg"
               className="bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400"
             >
@@ -103,7 +103,8 @@ export function Hero() {
             className="mt-8 hidden lg:block"
           >
             <Link
-              href="#about"
+              href="/about"
+              scroll={false}
               className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-cyan-400"
               aria-label="Scroll to about section"
             >
@@ -127,7 +128,8 @@ export function Hero() {
             className="mt-8 lg:hidden"
           >
             <Link
-              href="#about"
+              href="/about"
+              scroll={false}
               className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-cyan-400"
               aria-label="Scroll to about section"
             >
