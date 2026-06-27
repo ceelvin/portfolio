@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { StarryBackground } from "@/components/background/starry-background";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
@@ -13,26 +13,23 @@ import { pathToSection } from "@/lib/sections";
 
 export function PortfolioPage() {
   const pathname = usePathname();
-  const isFirstRender = useRef(true);
+  const prevPathnameRef = useRef<string | null>(null);
 
-  useEffect(() => {
-    const section = pathToSection(pathname);
-
-    if (isFirstRender.current && section === "home") {
-      isFirstRender.current = false;
+  useLayoutEffect(() => {
+    if (prevPathnameRef.current === pathname) {
       return;
     }
 
-    isFirstRender.current = false;
+    prevPathnameRef.current = pathname;
 
-    requestAnimationFrame(() => {
-      if (section === "home") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
+    const section = pathToSection(pathname);
 
-      document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
-    });
+    if (section === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
   }, [pathname]);
 
   return (
