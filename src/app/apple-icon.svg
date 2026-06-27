@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Celvin Kuhn">
+  <style>
+    .bg { fill: #0a0a23; }
+    .star-muted { fill: #94a3b8; }
+    .rocket { fill: #22d3ee; }
+    .flame { fill: #f97316; }
+    .glow { fill: #22d3ee; }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f8fafc; }
+      .star-muted { fill: #cbd5e1; }
+      .rocket { fill: #06b6d4; }
+      .flame { fill: #ea580c; }
+      .glow { fill: #06b6d4; }
+    }
+  </style>
+  <rect class="bg" width="180" height="180" rx="40" />
+  <circle cx="140" cy="48" r="3" class="glow" opacity="0.2" />
+  <circle cx="42" cy="38" r="2.2" class="rocket" opacity="0.75" />
+  <circle cx="132" cy="52" r="1.8" class="star-muted" opacity="0.65" />
+  <circle cx="48" cy="142" r="1.6" class="rocket" opacity="0.5" />
+  <circle cx="150" cy="128" r="1.4" class="star-muted" opacity="0.45" />
+  <path class="rocket" d="M90 38 L64 110 L90 92 L116 110 Z" />
+  <path class="flame" d="M80 110 H100 L90 135 Z" />
+</svg>
