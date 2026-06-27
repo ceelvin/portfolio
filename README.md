@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Celvin Kuhn — Portfolio
+
+Personal portfolio site for **Celvin Kuhn**, Full Stack Developer & UI/UX Designer.  
+Built with Next.js 15, TypeScript, and Tailwind CSS v4.
+
+Live site content covers hero, about, projects, and contact — with a space-themed interactive background, terminal panel, and Neovim-style keyboard navigation.
+
+## Features
+
+- **Hero** — intro, CTAs, and an interactive boot terminal with custom commands
+- **About** — bio, filterable skills (core vs. learning), expandable career timeline
+- **Projects** — filterable project cards with cover images and tech tags
+- **Contact** — form with API route (`/api/contact`)
+- **Starry background** — canvas animation with mouse-following ship (dark & light mode)
+- **Vim keybindings** — `j`/`k`, `gg`, `G`, `gh`/`ga`/`gp`/`gc`, `?` for help
+- **Theme toggle** — dark (default) and light mode
+- **Scroll progress** and **back-to-top** button
+
+## Tech Stack
+
+| Layer | Technologies |
+|-------|----------------|
+| Framework | [Next.js 15](https://nextjs.org) (App Router), React 19, TypeScript |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com), shadcn/ui (Base UI) |
+| Motion | [Framer Motion](https://www.framer.com/motion/) |
+| Icons | [Lucide React](https://lucide.dev) + custom brand SVGs |
+| Theme | [next-themes](https://github.com/pacocoursey/next-themes) |
+| Fonts | Inter, Space Grotesk (via `next/font`) |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- npm
+
+### Install & run
 
 ```bash
+git clone https://github.com/ceelvin/portfolio.git
+cd portfolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Dev server with Turbopack |
+| `npm run dev:clean` | Clear `.next` cache and restart dev |
+| `npm run dev:webpack` | Dev server without Turbopack |
+| `npm run build` | Production build |
+| `npm run start` | Serve production build (port 3000) |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+If hot reload breaks or you see stale chunk errors, stop all dev servers and run:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev:clean
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                  # Next.js App Router (layout, page, API routes)
+├── components/
+│   ├── background/       # Starry canvas background
+│   ├── interactive/      # Vim keybindings, scroll UI
+│   ├── layout/           # Navbar, footer
+│   ├── providers/        # Theme & app providers
+│   ├── sections/         # Hero, about, projects, contact
+│   └── ui/               # shadcn/ui primitives
+├── data/
+│   └── site.ts           # All site content (config, skills, projects, journey)
+├── hooks/
+└── lib/                  # Terminal commands, utilities
+public/
+└── images/               # Profile & project images
+```
 
-## Deploy on Vercel
+## Customization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Most content lives in a single file:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**`src/data/site.ts`**
+
+- `siteConfig` — name, title, email, social links, resume URL
+- `skills` — technologies with `core` / `learning` proficiency
+- `journey` — work history timeline
+- `projects` — portfolio entries (title, description, tech, image, links)
+- `bio` — summary, highlights, stats
+
+Add a resume PDF at `public/resume.pdf` for the download button to work.
+
+## Production
+
+Build and run locally or on any Node.js host:
+
+```bash
+npm run build
+npm run start
+```
+
+The app listens on port **3000** by default. Set `PORT` to override:
+
+```bash
+PORT=8080 npm run start
+```
+
+For a reverse proxy (nginx, Caddy, etc.), point traffic to the Next.js process and proxy WebSocket/HMR only in development.
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `j` / `k` | Scroll down / up |
+| `gg` | Scroll to top |
+| `G` | Scroll to bottom |
+| `gh` / `ga` / `gp` / `gc` | Jump to Home / About / Projects / Contact |
+| `?` | Toggle Vim help overlay |
+
+## License
+
+Private portfolio project. All rights reserved.
+
+## Contact
+
+- **Email:** contact@celvin.dev
+- **GitHub:** [ceelvin](https://github.com/ceelvin)
+- **LinkedIn:** [celvin-kuhn](https://linkedin.com/in/celvin-kuhn/)
