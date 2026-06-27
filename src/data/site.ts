@@ -20,9 +20,9 @@ export const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export type SkillProficiency = "core" | "learning";
+type SkillProficiency = "core" | "learning";
 
-export type Skill = {
+type Skill = {
   name: string;
   category: "Frontend" | "Backend" | "Tools";
   proficiency: SkillProficiency;
@@ -106,7 +106,7 @@ export const journey = [
 
 export type ProjectBadge = "trainee" | "hackathon" | "private";
 
-export type Project = {
+type Project = {
   title: string;
   description: string;
   technologies: string[];

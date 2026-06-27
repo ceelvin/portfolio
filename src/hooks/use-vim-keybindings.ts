@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSectionNavigation } from "@/hooks/use-section-navigation";
 import { type SectionId } from "@/lib/sections";
 
-const SECTIONS: Record<string, SectionId> = {
+const VIM_SECTION_KEYS: Record<string, SectionId> = {
   h: "home",
   a: "about",
   p: "projects",
@@ -74,7 +74,7 @@ export function useVimKeybindings() {
       if (pendingG) {
         e.preventDefault();
         setPendingG(false);
-        const section = SECTIONS[e.key];
+        const section = VIM_SECTION_KEYS[e.key];
         if (section) {
           navigateToSection(section);
           flashStatus(`g${e.key} → /${section === "home" ? "" : section}`);

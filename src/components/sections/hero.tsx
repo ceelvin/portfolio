@@ -6,6 +6,24 @@ import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { HeroSidePanel } from "@/components/sections/hero-terminal";
+import { cn } from "@/lib/utils";
+
+function ScrollToExploreLink({ className }: { className?: string }) {
+  return (
+    <Link
+      href="/about"
+      scroll={false}
+      className={cn(
+        "inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-cyan-400",
+        className
+      )}
+      aria-label="Scroll to about section"
+    >
+      <ArrowDown className="size-4 animate-bounce" />
+      Scroll to explore
+    </Link>
+  );
+}
 
 export function Hero() {
   return (
@@ -20,18 +38,20 @@ export function Hero() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-left"
         >
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-sm text-cyan-400"
-          >
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan-400 opacity-75" />
-              <span className="relative inline-flex size-2 rounded-full bg-cyan-400" />
-            </span>
-            Available for new opportunities
-          </motion.p>
+          {siteConfig.available && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-sm text-cyan-400"
+            >
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan-400 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-cyan-400" />
+              </span>
+              Available for new opportunities
+            </motion.p>
+          )}
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -118,15 +138,7 @@ export function Hero() {
             transition={{ delay: 1 }}
             className="mt-8 hidden lg:block"
           >
-            <Link
-              href="/about"
-              scroll={false}
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-cyan-400"
-              aria-label="Scroll to about section"
-            >
-              <ArrowDown className="size-4 animate-bounce" />
-              Scroll to explore
-            </Link>
+            <ScrollToExploreLink />
           </motion.div>
         </motion.div>
 
@@ -143,15 +155,7 @@ export function Hero() {
             transition={{ delay: 1 }}
             className="mt-8 lg:hidden"
           >
-            <Link
-              href="/about"
-              scroll={false}
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-cyan-400"
-              aria-label="Scroll to about section"
-            >
-              <ArrowDown className="size-4 animate-bounce" />
-              Scroll to explore
-            </Link>
+            <ScrollToExploreLink />
           </motion.div>
         </motion.div>
       </div>

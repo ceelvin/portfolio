@@ -20,7 +20,7 @@ interface ShipState {
   isDocked: boolean;
 }
 
-export interface ShipColors {
+interface ShipColors {
   body: string;
   bodyDark: string;
   accent: string;

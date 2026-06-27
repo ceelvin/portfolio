@@ -4,7 +4,7 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { navLinks, siteConfig } from "@/data/site";
-import { hrefToSectionId } from "@/lib/sections";
+import { hrefToSectionId, SECTIONS } from "@/lib/sections";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,11 +17,9 @@ import {
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
-const sectionIds = ["home", "about", "projects", "contact"];
-
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const activeSection = useActiveSection(sectionIds);
+  const activeSection = useActiveSection([...SECTIONS]);
 
   const handleNavClick = () => setOpen(false);
 
