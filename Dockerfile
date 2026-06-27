@@ -17,7 +17,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=80
 ENV HOSTNAME=0.0.0.0
-# Set at runtime: WEB3FORMS_ACCESS_KEY (contact form)
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs && \

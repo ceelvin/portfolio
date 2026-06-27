@@ -13,38 +13,37 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 
-export function Contact() {
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [loading, setLoading] = useState(false);
-  const mailtoHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent("Portfolio contact")}`;
+function buildMailto(name: string, email: string, message: string): string {
+  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+  const body = encodeURIComponent(
+    `Hi Celvin,\n\n${message}\n\n— ${name}\n${email}`
+  );
+  return `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+}
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+export function Contact() {
+  const [status, setStatus] = useState<"idle" | "mailto">("idle");
+  const [mailtoHref, setMailtoHref] = useState(
+    `mailto:${siteConfig.email}?subject=${encodeURIComponent("Portfolio contact")}`
+  );
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true);
-    setStatus("idle");
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      message: formData.get("message") as string,
-    };
+    const name = (formData.get("name") as string).trim();
+    const email = (formData.get("email") as string).trim();
+    const message = (formData.get("message") as string).trim();
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) throw new Error("Failed to send");
-      setStatus("success");
-      e.currentTarget.reset();
-    } catch {
-      setStatus("error");
-    } finally {
-      setLoading(false);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name || !email || !message || !emailRegex.test(email)) {
+      return;
     }
+
+    const href = buildMailto(name, email, message);
+    setMailtoHref(href);
+    setStatus("mailto");
+    window.location.href = href;
   }
 
   return (
@@ -53,7 +52,7 @@ export function Contact() {
         <SectionHeading
           label="Contact"
           title="Let's Work Together"
-          description="Have a project in mind or want to connect? Send me a message — I'd love to hear from you."
+          description="Have a project in mind or want to connect? Fill out the form and send it via your email app."
         />
 
         <div className="mt-16 grid gap-12 lg:grid-cols-5">
@@ -72,7 +71,7 @@ export function Contact() {
                   <div>
                     <p className="text-sm font-medium text-foreground">Email</p>
                     <a
-                      href={mailtoHref}
+                      href={`mailto:${siteConfig.email}`}
                       className="text-sm text-muted-foreground transition-colors hover:text-cyan-400"
                     >
                       {siteConfig.email}
@@ -189,23 +188,19 @@ export function Contact() {
                     />
                   </div>
 
-                  {status === "success" && (
-                    <p
-                      role="status"
-                      className="rounded-lg border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-400"
-                    >
-                      Message sent successfully! I&apos;ll get back to you soon.
-                    </p>
-                  )}
-
-                  {status === "error" && (
+                  {status === "mailto" && (
                     <div
-                      role="alert"
-                      className="space-y-4 rounded-lg border border-amber-400/40 bg-amber-400/10 px-4 py-4"
+                      role="status"
+                      className="space-y-4 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-4 py-4"
                     >
-                      <p className="text-sm text-amber-200">
-                        The form couldn&apos;t send your message right now. Email
-                        me directly instead — I&apos;ll still get it.
+                      <p className="text-sm text-cyan-100">
+                        Your email app should open with your message ready to
+                        send. If it didn&apos;t, use the button below to email me
+                        at{" "}
+                        <span className="font-medium text-cyan-400">
+                          {siteConfig.email}
+                        </span>
+                        .
                       </p>
                       <Button
                         nativeButton={false}
@@ -214,7 +209,7 @@ export function Contact() {
                         className="w-full bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400 sm:w-auto"
                       >
                         <Mail className="size-4" />
-                        Email {siteConfig.email}
+                        Open in email app
                       </Button>
                     </div>
                   )}
@@ -223,16 +218,15 @@ export function Contact() {
                     <Button
                       type="submit"
                       size="lg"
-                      disabled={loading}
                       className="w-full bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400 sm:w-auto"
                     >
                       <Send className="size-4" />
-                      {loading ? "Sending..." : "Send Message"}
+                      Send via email
                     </Button>
                     <p className="text-center text-xs text-muted-foreground sm:text-right">
                       Or{" "}
                       <a
-                        href={mailtoHref}
+                        href={`mailto:${siteConfig.email}`}
                         className="font-medium text-cyan-400 underline-offset-2 hover:underline"
                       >
                         email me directly
