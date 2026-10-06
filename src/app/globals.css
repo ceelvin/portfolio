@@ -118,7 +118,7 @@
   }
 
   html {
-    @apply scroll-smooth font-sans;
+    @apply font-sans;
   }
 
   body {
@@ -132,6 +132,49 @@
   h5,
   h6 {
     font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .loop-drift {
+    animation: loop-drift 2s ease-in-out infinite;
+  }
+
+  .loop-pulse {
+    animation: loop-pulse 2s ease-in-out infinite;
+  }
+
+  .loop-sweep {
+    animation: loop-sweep 2s linear infinite;
+  }
+}
+
+@keyframes loop-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(3px, -2px, 0);
+  }
+}
+
+@keyframes loop-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes loop-sweep {
+  from {
+    transform: translateX(-3px);
+  }
+  to {
+    transform: translateX(3px);
   }
 }
 

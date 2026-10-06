@@ -54,7 +54,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
           <p>&copy; {year} {siteConfig.name}. All rights reserved.</p>
-          <p>Last updated: June 2026</p>
+          <p>Last updated: October 2026</p>
         </div>
       </div>
     </footer>

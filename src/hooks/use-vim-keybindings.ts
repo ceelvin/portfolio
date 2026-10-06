@@ -1,5 +1,6 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSectionNavigation } from "@/hooks/use-section-navigation";
 import { type SectionId } from "@/lib/sections";
@@ -24,6 +25,7 @@ function isTypingTarget(target: EventTarget | null) {
 
 export function useVimKeybindings() {
   const { navigateToSection } = useSectionNavigation();
+  const lenis = useLenis();
   const [helpOpen, setHelpOpen] = useState(false);
   const [pendingG, setPendingG] = useState(false);
   const [statusLine, setStatusLine] = useState<string | null>(null);
@@ -58,7 +60,7 @@ export function useVimKeybindings() {
         e.preventDefault();
         const now = Date.now();
         if (now - lastGRef.current < 400) {
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          navigateToSection("home");
           flashStatus("gg → top");
           lastGRef.current = 0;
           setPendingG(false);
@@ -77,7 +79,7 @@ export function useVimKeybindings() {
         const section = VIM_SECTION_KEYS[e.key];
         if (section) {
           navigateToSection(section);
-          flashStatus(`g${e.key} → /${section === "home" ? "" : section}`);
+          flashStatus(`g${e.key} → ${section}`);
         } else {
           flashStatus(`g${e.key} → unknown`);
         }
@@ -87,18 +89,15 @@ export function useVimKeybindings() {
       switch (e.key) {
         case "j":
           e.preventDefault();
-          window.scrollBy({ top: 60, behavior: "smooth" });
+          lenis?.scrollTo(lenis.scroll + 80);
           break;
         case "k":
           e.preventDefault();
-          window.scrollBy({ top: -60, behavior: "smooth" });
+          lenis?.scrollTo(Math.max(0, lenis.scroll - 80));
           break;
         case "G":
           e.preventDefault();
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          });
+          lenis?.scrollTo(document.documentElement.scrollHeight);
           flashStatus("G → bottom");
           break;
         case ":":
@@ -109,16 +108,10 @@ export function useVimKeybindings() {
         default:
           if (e.ctrlKey && e.key === "d") {
             e.preventDefault();
-            window.scrollBy({
-              top: window.innerHeight / 2,
-              behavior: "smooth",
-            });
+            lenis?.scrollTo(lenis.scroll + window.innerHeight / 2);
           } else if (e.ctrlKey && e.key === "u") {
             e.preventDefault();
-            window.scrollBy({
-              top: -window.innerHeight / 2,
-              behavior: "smooth",
-            });
+            lenis?.scrollTo(Math.max(0, lenis.scroll - window.innerHeight / 2));
           }
           break;
       }
@@ -129,7 +122,7 @@ export function useVimKeybindings() {
       window.removeEventListener("keydown", onKeyDown);
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
     };
-  }, [helpOpen, pendingG, flashStatus, navigateToSection]);
+  }, [helpOpen, pendingG, flashStatus, navigateToSection, lenis]);
 
   return { helpOpen, setHelpOpen, statusLine };
 }

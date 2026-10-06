@@ -1,5 +1,6 @@
 "use client";
 
+import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { KonamiEasterEgg } from "@/components/interactive/konami-easter-egg";
 import { BackToTop, ScrollProgress } from "@/components/interactive/scroll-ui";
@@ -12,11 +13,13 @@ export default function AppProviders({
 }) {
   return (
     <ThemeProvider>
-      <ScrollProgress />
-      <VimKeybindings />
-      <KonamiEasterEgg />
-      <BackToTop />
-      {children}
+      <SmoothScroll>
+        <ScrollProgress />
+        <VimKeybindings />
+        <KonamiEasterEgg />
+        <BackToTop />
+        {children}
+      </SmoothScroll>
     </ThemeProvider>
   );
 }

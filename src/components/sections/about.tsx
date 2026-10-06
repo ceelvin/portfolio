@@ -101,7 +101,7 @@ export function About() {
                 </button>
               ))}
             </div>
-            <motion.div layout className="mt-4 flex flex-wrap gap-2">
+            <motion.div layout className="mt-4 flex flex-wrap gap-2 overflow-x-clip">
               <AnimatePresence mode="popLayout">
                 {filteredSkills.map((skill) => (
                   <motion.div
@@ -160,10 +160,10 @@ export function About() {
                     >
                       <span
                         className={cn(
-                          "absolute left-0 top-3 size-3.5 rounded-full border-2 bg-background transition-colors",
+                          "absolute left-px top-3.5 size-3.5 rounded-full border-2 bg-background transition-colors",
                           isOpen
-                            ? "border-cyan-400 bg-cyan-400/20"
-                            : "border-cyan-400 group-hover:bg-cyan-400/10"
+                            ? "border-cyan-400 bg-cyan-400"
+                            : "border-cyan-400 group-hover:bg-cyan-300"
                         )}
                       />
                       <div className="flex items-center justify-between pr-2">

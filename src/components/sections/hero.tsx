@@ -2,17 +2,19 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, Clock, Languages } from "lucide-react";
-import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { HeroSidePanel } from "@/components/sections/hero-terminal";
+import { useSectionNavigation } from "@/hooks/use-section-navigation";
 import { cn } from "@/lib/utils";
 
 function ScrollToExploreLink({ className }: { className?: string }) {
+  const { navigateToSection } = useSectionNavigation();
+
   return (
-    <Link
-      href="/about"
-      scroll={false}
+    <button
+      type="button"
+      onClick={() => navigateToSection("about")}
       className={cn(
         "inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-cyan-400",
         className
@@ -21,11 +23,13 @@ function ScrollToExploreLink({ className }: { className?: string }) {
     >
       <ArrowDown className="size-4 animate-bounce" />
       Scroll to explore
-    </Link>
+    </button>
   );
 }
 
 export function Hero() {
+  const { navigateToSection } = useSectionNavigation();
+
   return (
     <section
       id="home"
@@ -106,9 +110,8 @@ export function Hero() {
             className="mt-8 flex flex-wrap gap-4"
           >
             <Button
-              nativeButton={false}
-              render={<Link href="/projects" scroll={false} />}
               size="lg"
+              onClick={() => navigateToSection("projects")}
               className="bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400"
             >
               View My Work

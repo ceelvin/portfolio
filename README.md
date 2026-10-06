@@ -95,7 +95,7 @@ Most content lives in a single file:
 - `projects` — portfolio entries (title, description, tech, image, links)
 - `bio` — summary, highlights, stats
 
-Section URLs map to scroll targets on the single-page layout (`/`, `/about`, `/projects`, `/contact`).
+Navigation stays on `/` and scrolls to in-page sections. Old paths (`/about`, `/projects`, `/contact`) redirect to `/#section`.
 
 ## Production
 

@@ -3,7 +3,7 @@ export const SECTIONS = ["home", "about", "projects", "contact"] as const;
 export type SectionId = (typeof SECTIONS)[number];
 
 export function sectionToPath(section: SectionId): string {
-  return section === "home" ? "/" : `/${section}`;
+  return section === "home" ? "/" : `/#${section}`;
 }
 
 export function pathToSection(pathname: string): SectionId {

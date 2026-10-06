@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Terminal } from "lucide-react";
-import { useTheme } from "next-themes";
+import { useLenis } from "lenis/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/data/site";
 import { useSectionNavigation } from "@/hooks/use-section-navigation";
@@ -36,8 +36,8 @@ export function HeroSidePanel() {
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { setTheme, resolvedTheme } = useTheme();
   const { navigateToSection } = useSectionNavigation();
+  const lenis = useLenis();
 
   const currentBootLine = bootLines[bootIndex];
   const fullBootText = currentBootLine
@@ -71,23 +71,23 @@ export function HeroSidePanel() {
 
   useEffect(() => {
     const focusTerminal = () => {
-      document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" });
+      if (lenis) {
+        lenis.scrollTo(0);
+      } else {
+        document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" });
+      }
       setTimeout(() => inputRef.current?.focus(), 300);
     };
     window.addEventListener("focus-terminal", focusTerminal);
     return () => window.removeEventListener("focus-terminal", focusTerminal);
-  }, []);
+  }, [lenis]);
 
   const handleCommand = useCallback(
     (raw: string) => {
       const command = raw.trim();
       if (!command) return;
 
-      const output = runTerminalCommand(
-        command,
-        navigateToSection,
-        () => setTheme(resolvedTheme === "dark" ? "light" : "dark")
-      );
+      const output = runTerminalCommand(command, navigateToSection);
 
       if (output[0] === "__CLEAR__") {
         setHistory([]);
@@ -96,7 +96,7 @@ export function HeroSidePanel() {
       }
       setInput("");
     },
-    [navigateToSection, resolvedTheme, setTheme]
+    [navigateToSection]
   );
 
   return (
@@ -126,6 +126,7 @@ export function HeroSidePanel() {
 
       <div
         ref={scrollRef}
+        data-lenis-prevent
         className="max-h-72 space-y-2 overflow-y-auto p-4 font-mono text-sm leading-relaxed"
       >
         {bootLines
