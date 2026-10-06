@@ -25,7 +25,7 @@ export function VimKeybindings() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            className="pointer-events-none fixed bottom-6 left-6 z-[100] rounded-md border border-cyan-400/20 bg-[#0d1117]/90 px-3 py-1.5 font-mono text-xs text-cyan-400 shadow-lg backdrop-blur-sm"
+            className="pointer-events-none fixed bottom-6 left-6 z-[100] rounded-md border border-cyan-400/20 bg-hull/90 px-3 py-1.5 font-mono text-xs text-cyan-400 shadow-lg backdrop-blur-sm"
           >
             {statusLine}
           </motion.div>
@@ -47,7 +47,7 @@ export function VimKeybindings() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md overflow-hidden rounded-xl border border-cyan-400/20 bg-[#0d1117]/95 font-mono shadow-2xl"
+              className="w-full max-w-md overflow-hidden rounded-xl border border-cyan-400/20 bg-hull/95 font-mono shadow-2xl"
               role="dialog"
               aria-label="Vim keybindings help"
             >
@@ -65,7 +65,7 @@ export function VimKeybindings() {
                     key={b.keys}
                     className="flex items-center justify-between gap-4 py-2.5 text-xs"
                   >
-                    <span className="shrink-0 text-emerald-400">{b.keys}</span>
+                    <span className="shrink-0 text-amber-400">{b.keys}</span>
                     <span className="text-right text-muted-foreground">
                       {b.desc}
                     </span>

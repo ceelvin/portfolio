@@ -14,11 +14,12 @@ const categoryColors: Record<string, string> = {
   Frontend: "border-cyan-400/30 bg-cyan-400/10 text-cyan-400",
   Backend: "border-violet-400/30 bg-violet-400/10 text-violet-300",
   Tools: "border-amber-400/30 bg-amber-400/10 text-amber-300",
+  Learning: "border-amber-600/40 bg-amber-600/10 text-amber-500",
 };
 
 function getSkillBadgeClass(skill: (typeof skills)[number]) {
   if (skill.proficiency === "learning") {
-    return "border-dashed border-orange-400/40 bg-orange-400/5 text-orange-300";
+    return categoryColors.Learning;
   }
   return categoryColors[skill.category] ?? "";
 }
@@ -66,7 +67,7 @@ export function About() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.03 }}
-                  className="cursor-default rounded-xl border border-border/60 bg-card/50 p-4 text-center transition-colors hover:border-cyan-400/30"
+                  className="panel-frame cursor-default rounded-sm border border-cyan-400/25 bg-card/50 p-4 text-center transition-colors hover:border-cyan-400/50"
                 >
                   <p className="font-heading text-2xl font-bold text-cyan-400">
                     {stat.value}
@@ -91,7 +92,7 @@ export function About() {
                   type="button"
                   onClick={() => setSkillFilter(cat)}
                   className={cn(
-                    "rounded-full border px-3 py-1 text-xs font-medium transition-all",
+                    "rounded-sm border px-3 py-1 font-mono text-xs font-medium uppercase tracking-wider transition-all",
                     skillFilter === cat
                       ? "border-cyan-400/50 bg-cyan-400/15 text-cyan-400"
                       : "border-border/60 text-muted-foreground hover:border-cyan-400/30 hover:text-foreground"
@@ -101,7 +102,7 @@ export function About() {
                 </button>
               ))}
             </div>
-            <motion.div layout className="mt-4 flex flex-wrap gap-2">
+            <motion.div layout className="mt-4 flex flex-wrap gap-2 overflow-x-clip">
               <AnimatePresence mode="popLayout">
                 {filteredSkills.map((skill) => (
                   <motion.div
@@ -120,7 +121,7 @@ export function About() {
                           : undefined
                       }
                       className={cn(
-                        "cursor-default transition-shadow hover:shadow-md hover:shadow-cyan-500/10",
+                        "cursor-default rounded-sm",
                         getSkillBadgeClass(skill)
                       )}
                     >
@@ -160,10 +161,10 @@ export function About() {
                     >
                       <span
                         className={cn(
-                          "absolute left-0 top-3 size-3.5 rounded-full border-2 bg-background transition-colors",
+                          "absolute left-px top-3.5 size-3.5 rounded-full border-2 bg-background transition-colors",
                           isOpen
-                            ? "border-cyan-400 bg-cyan-400/20"
-                            : "border-cyan-400 group-hover:bg-cyan-400/10"
+                            ? "border-cyan-400 bg-cyan-400"
+                            : "border-cyan-400 group-hover:bg-cyan-300"
                         )}
                       />
                       <div className="flex items-center justify-between pr-2">

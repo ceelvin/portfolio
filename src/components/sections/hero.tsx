@@ -2,17 +2,19 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, Clock, Languages } from "lucide-react";
-import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { HeroSidePanel } from "@/components/sections/hero-terminal";
+import { useSectionNavigation } from "@/hooks/use-section-navigation";
 import { cn } from "@/lib/utils";
 
 function ScrollToExploreLink({ className }: { className?: string }) {
+  const { navigateToSection } = useSectionNavigation();
+
   return (
-    <Link
-      href="/about"
-      scroll={false}
+    <button
+      type="button"
+      onClick={() => navigateToSection("about")}
       className={cn(
         "inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-cyan-400",
         className
@@ -21,11 +23,13 @@ function ScrollToExploreLink({ className }: { className?: string }) {
     >
       <ArrowDown className="size-4 animate-bounce" />
       Scroll to explore
-    </Link>
+    </button>
   );
 }
 
 export function Hero() {
+  const { navigateToSection } = useSectionNavigation();
+
   return (
     <section
       id="home"
@@ -43,7 +47,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-sm text-cyan-400"
+               className="mb-4 inline-flex items-center gap-2 rounded-sm border border-cyan-400/25 bg-cyan-400/5 px-3 py-1.5 font-mono text-xs uppercase tracking-[0.14em] text-cyan-400"
             >
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan-400 opacity-75" />
@@ -60,7 +64,7 @@ export function Hero() {
             className="font-heading text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
           >
             Hi, I&apos;m{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">
               {siteConfig.name}
             </span>
           </motion.h1>
@@ -106,10 +110,9 @@ export function Hero() {
             className="mt-8 flex flex-wrap gap-4"
           >
             <Button
-              nativeButton={false}
-              render={<Link href="/projects" scroll={false} />}
               size="lg"
-              className="bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400"
+              onClick={() => navigateToSection("projects")}
+              className="rounded-sm bg-cyan-400 font-semibold text-void hover:bg-cyan-300"
             >
               View My Work
             </Button>

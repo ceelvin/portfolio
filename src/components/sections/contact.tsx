@@ -62,7 +62,7 @@ export function Contact() {
             viewport={{ once: true }}
             className="space-y-6 lg:col-span-2"
           >
-            <Card className="border-border/60 bg-card/50">
+            <Card className="border-cyan-400/25 bg-card/50">
               <CardContent className="space-y-6 p-6">
                 <div className="flex items-start gap-4">
                   <div className="rounded-lg bg-cyan-400/10 p-2.5 text-cyan-400">
@@ -130,12 +130,12 @@ export function Contact() {
               </CardContent>
             </Card>
 
-            <div className="flex items-center gap-2 rounded-xl border border-emerald-400/20 bg-emerald-400/5 px-4 py-3">
+            <div className="flex items-center gap-2 rounded-sm border border-amber-600/30 bg-amber-600/10 px-4 py-3">
               <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-amber-500 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-amber-500" />
               </span>
-              <span className="text-sm text-emerald-400">
+              <span className="font-mono text-xs uppercase tracking-[0.14em] text-amber-500">
                 Available for new opportunities
               </span>
             </div>
@@ -147,7 +147,7 @@ export function Contact() {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            <Card className="border-border/60 bg-card/50">
+            <Card className="border-cyan-400/25 bg-card/50">
               <CardContent className="p-6 sm:p-8">
                 <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   <div className="grid gap-6 sm:grid-cols-2">
@@ -191,9 +191,9 @@ export function Contact() {
                   {status === "mailto" && (
                     <div
                       role="status"
-                      className="space-y-4 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-4 py-4"
+                      className="space-y-4 rounded-sm border border-cyan-400/30 bg-cyan-400/10 px-4 py-4"
                     >
-                      <p className="text-sm text-cyan-100">
+                      <p className="text-sm text-bone">
                         Your email app should open with your message ready to
                         send. If it didn&apos;t, use the button below to email me
                         at{" "}
@@ -206,7 +206,7 @@ export function Contact() {
                         nativeButton={false}
                         render={<a href={mailtoHref} />}
                         size="lg"
-                        className="w-full bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400 sm:w-auto"
+                        className="w-full rounded-sm bg-cyan-400 font-semibold text-void hover:bg-cyan-300 sm:w-auto"
                       >
                         <Mail className="size-4" />
                         Open in email app
@@ -218,7 +218,7 @@ export function Contact() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-cyan-500 font-semibold text-navy-950 hover:bg-cyan-400 sm:w-auto"
+                      className="w-full rounded-sm bg-cyan-400 font-semibold text-void hover:bg-cyan-300 sm:w-auto"
                     >
                       <Send className="size-4" />
                       Send via email

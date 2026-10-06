@@ -58,7 +58,7 @@ export function Projects() {
               type="button"
               onClick={() => setActiveFilter(tech)}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
+                "rounded-sm border px-3 py-1.5 font-mono text-xs font-medium uppercase tracking-wider transition-all",
                 activeFilter === tech
                   ? "border-cyan-400/50 bg-cyan-400/15 text-cyan-400"
                   : "border-border/60 bg-card/50 text-muted-foreground hover:border-cyan-400/30 hover:text-foreground"
@@ -83,7 +83,7 @@ export function Projects() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <Card className="group h-full overflow-hidden border-border/60 bg-card/50 transition-all duration-300 hover:border-cyan-400/30 hover:shadow-xl hover:shadow-cyan-500/5">
+                  <Card className="group h-full overflow-hidden border-cyan-400/25 bg-card/50 transition-colors duration-300 hover:border-cyan-400/50">
                     <div
                       className={cn(
                         "relative h-44 overflow-hidden bg-gradient-to-br",
@@ -92,12 +92,13 @@ export function Projects() {
                     >
                       <Image
                         src={project.image}
-                        alt={`${project.title} preview`}
+                        alt=""
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        alt={`${project.title} preview`}
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
                       <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
                         {badges.map((badge) => (
                           <Badge

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Terminal } from "lucide-react";
-import { useTheme } from "next-themes";
+import { useLenis } from "lenis/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/data/site";
 import { useSectionNavigation } from "@/hooks/use-section-navigation";
@@ -36,8 +36,8 @@ export function HeroSidePanel() {
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { setTheme, resolvedTheme } = useTheme();
   const { navigateToSection } = useSectionNavigation();
+  const lenis = useLenis();
 
   const currentBootLine = bootLines[bootIndex];
   const fullBootText = currentBootLine
@@ -71,23 +71,23 @@ export function HeroSidePanel() {
 
   useEffect(() => {
     const focusTerminal = () => {
-      document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" });
+      if (lenis) {
+        lenis.scrollTo(0);
+      } else {
+        document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" });
+      }
       setTimeout(() => inputRef.current?.focus(), 300);
     };
     window.addEventListener("focus-terminal", focusTerminal);
     return () => window.removeEventListener("focus-terminal", focusTerminal);
-  }, []);
+  }, [lenis]);
 
   const handleCommand = useCallback(
     (raw: string) => {
       const command = raw.trim();
       if (!command) return;
 
-      const output = runTerminalCommand(
-        command,
-        navigateToSection,
-        () => setTheme(resolvedTheme === "dark" ? "light" : "dark")
-      );
+      const output = runTerminalCommand(command, navigateToSection);
 
       if (output[0] === "__CLEAR__") {
         setHistory([]);
@@ -96,7 +96,7 @@ export function HeroSidePanel() {
       }
       setInput("");
     },
-    [navigateToSection, resolvedTheme, setTheme]
+    [navigateToSection]
   );
 
   return (
@@ -104,7 +104,7 @@ export function HeroSidePanel() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.45 }}
-      className="w-full overflow-hidden rounded-xl border border-cyan-400/20 bg-[#0d1117]/80 shadow-xl shadow-cyan-500/5 backdrop-blur-sm"
+      className="panel-frame relative w-full overflow-hidden rounded-sm border border-cyan-400/25 bg-card/80"
       onClick={() => bootComplete && inputRef.current?.focus()}
     >
       <div className="flex items-center justify-between gap-2 border-b border-border/40 bg-card/40 px-4 py-3">
@@ -126,6 +126,7 @@ export function HeroSidePanel() {
 
       <div
         ref={scrollRef}
+        data-lenis-prevent
         className="max-h-72 space-y-2 overflow-y-auto p-4 font-mono text-sm leading-relaxed"
       >
         {bootLines
@@ -133,7 +134,7 @@ export function HeroSidePanel() {
           .map((line, i) => (
             <div key={`boot-${i}`}>
               <p className="text-cyan-400/90">
-                <span className="text-emerald-400">{line.prompt}</span>{" "}
+                <span className="text-amber-400">{line.prompt}</span>{" "}
                 {line.command}
               </p>
               <p className="pl-4 text-muted-foreground">{line.output}</p>
@@ -150,7 +151,7 @@ export function HeroSidePanel() {
         {history.map((entry, i) => (
           <div key={`hist-${i}`}>
             <p className="text-cyan-400/90">
-              <span className="text-emerald-400">$</span> {entry.command}
+              <span className="text-amber-400">$</span> {entry.command}
             </p>
             {entry.output.map((line, j) => (
               <p key={j} className="pl-4 text-muted-foreground">
@@ -168,7 +169,7 @@ export function HeroSidePanel() {
             }}
             className="flex items-center gap-1 text-cyan-400/90"
           >
-            <span className="text-emerald-400">$</span>
+            <span className="text-amber-400">$</span>
             <input
               ref={inputRef}
               value={input}

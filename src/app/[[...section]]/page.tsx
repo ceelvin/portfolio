@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { PortfolioPage } from "@/components/portfolio-page";
 import { siteTitle } from "@/data/site";
 import { isValidSection } from "@/lib/sections";
@@ -22,7 +22,7 @@ export default async function Page({
   }
 
   if (section.length === 1 && isValidSection(section[0])) {
-    return <PortfolioPage />;
+    permanentRedirect(section[0] === "home" ? "/" : `/#${section[0]}`);
   }
 
   notFound();

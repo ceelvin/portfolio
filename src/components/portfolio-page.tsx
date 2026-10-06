@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useLenis } from "lenis/react";
+import { useEffect } from "react";
 import { StarryBackground } from "@/components/background/starry-background";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
@@ -10,40 +10,25 @@ import { Contact } from "@/components/sections/contact";
 import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
 import { siteTitle } from "@/data/site";
-import { pathToSection } from "@/lib/sections";
 
 export function PortfolioPage() {
-  const pathname = usePathname();
-  const isFirstRender = useRef(true);
+  const lenis = useLenis();
 
   useEffect(() => {
     document.title = siteTitle;
-  }, [pathname]);
+  }, []);
 
   useEffect(() => {
-    const section = pathToSection(pathname);
-
-    if (isFirstRender.current && section === "home") {
-      isFirstRender.current = false;
-      return;
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
     }
-
-    isFirstRender.current = false;
-
-    requestAnimationFrame(() => {
-      if (section === "home") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
-
-      document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
-    });
-  }, [pathname]);
+    lenis?.scrollTo(0, { immediate: true });
+  }, [lenis]);
 
   return (
     <>
       <StarryBackground />
-      <div className="relative z-10">
+      <div className="relative">
         <Navbar />
         <main>
           <Hero />

@@ -6,7 +6,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border/50 bg-card/30 backdrop-blur-sm dark:bg-[#0a0a23]/50">
+    <footer className="border-t border-cyan-400/20 bg-background/80">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div>
@@ -54,7 +54,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
           <p>&copy; {year} {siteConfig.name}. All rights reserved.</p>
-          <p>Last updated: June 2026</p>
+          <p>Last updated: October 2026</p>
         </div>
       </div>
     </footer>

@@ -35,23 +35,23 @@ type BackgroundPalette = {
 
 const palettes: Record<"dark" | "light", BackgroundPalette> = {
   dark: {
-    background: "#0a0a23",
-    starAccent: "#00d4ff",
-    starDefault: "#ffffff",
-    starAccentRgb: [0, 212, 255],
-    starDefaultRgb: [255, 255, 255],
-    nebulaColors: ["#4a90e2", "#9b59b6"],
-    constellationStroke: "173, 216, 230",
-    constellationStar: "255, 255, 255",
-    meteorStroke: "255, 255, 255",
-    shipBody: "#22d3ee",
-    shipBodyDark: "#0891b2",
-    shipAccent: "#67e8f9",
-    shipWindow: "#0a0a23",
-    shipFlame: "#f97316",
-    shipFlameCore: "#fbbf24",
-    starBrightnessMin: 0.3,
-    starBrightnessMax: 1,
+    background: "#07080b",
+    starAccent: "#7ec8c3",
+    starDefault: "#8b877c",
+    starAccentRgb: [126, 200, 195],
+    starDefaultRgb: [139, 135, 124],
+    nebulaColors: ["#3d6f6c", "#8a4b32"],
+    constellationStroke: "126, 200, 195",
+    constellationStar: "139, 135, 124",
+    meteorStroke: "224, 161, 90",
+    shipBody: "#7ec8c3",
+    shipBodyDark: "#3d6f6c",
+    shipAccent: "#e0a15a",
+    shipWindow: "#07080b",
+    shipFlame: "#b8734a",
+    shipFlameCore: "#e0a15a",
+    starBrightnessMin: 0.2,
+    starBrightnessMax: 0.55,
   },
   light: {
     background: "#f8fafc",
@@ -88,16 +88,16 @@ function StaticStarryBackground({ palette }: { palette: BackgroundPalette }) {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 h-full w-full"
+      className="pointer-events-none fixed inset-0 -z-10 h-full w-full opacity-40"
       style={{
         background: `
           radial-gradient(ellipse at 20% 30%, rgba(${r1}, ${g1}, ${b1}, 0.18) 0%, transparent 50%),
           radial-gradient(ellipse at 80% 70%, rgba(${r2}, ${g2}, ${b2}, 0.18) 0%, transparent 50%),
           radial-gradient(circle at 15% 25%, rgba(${ar}, ${ag}, ${ab}, 0.35) 0, transparent 2px),
           radial-gradient(circle at 85% 15%, rgba(${ar}, ${ag}, ${ab}, 0.25) 0, transparent 1.5px),
-          radial-gradient(circle at 45% 60%, rgba(255, 255, 255, 0.2) 0, transparent 1px),
-          radial-gradient(circle at 70% 45%, rgba(255, 255, 255, 0.15) 0, transparent 1px),
-          radial-gradient(circle at 25% 80%, rgba(255, 255, 255, 0.2) 0, transparent 1.5px),
+          radial-gradient(circle at 45% 60%, rgba(139, 135, 124, 0.35) 0, transparent 1px),
+          radial-gradient(circle at 70% 45%, rgba(139, 135, 124, 0.25) 0, transparent 1px),
+          radial-gradient(circle at 25% 80%, rgba(224, 161, 90, 0.3) 0, transparent 1.5px),
           ${palette.background}`,
       }}
     />
@@ -268,7 +268,7 @@ export function StarryBackground() {
         this.baseOpacity =
           resolvedTheme === "light"
             ? Math.random() * 0.04 + 0.03
-            : Math.random() * 0.1 + 0.05;
+            : Math.random() * 0.05 + 0.02;
         this.opacity = this.baseOpacity;
         this.color =
           Math.random() > 0.5
@@ -403,8 +403,7 @@ export function StarryBackground() {
     }
 
     function animate() {
-      ctx.fillStyle = palette.background;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       nebulae.forEach((nebula) => {
         nebula.update();
@@ -493,7 +492,7 @@ export function StarryBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 h-full w-full"
+      className="pointer-events-none fixed inset-0 -z-10 h-full w-full opacity-40"
     />
   );
 }

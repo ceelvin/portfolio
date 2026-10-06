@@ -2,23 +2,16 @@
 
 import { ArrowUp } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useLenis } from "lenis/react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export function ScrollProgress() {
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useLenis((lenis) => {
+    setProgress(lenis.progress * 100);
+  });
 
   return (
     <div
@@ -26,7 +19,7 @@ export function ScrollProgress() {
       aria-hidden="true"
     >
       <motion.div
-        className="h-full bg-gradient-to-r from-cyan-400 to-blue-500"
+        className="h-full bg-cyan-400"
         style={{ width: `${progress}%` }}
         layout
       />
@@ -36,13 +29,11 @@ export function ScrollProgress() {
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
+  const lenis = useLenis();
 
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 500);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useLenis((instance) => {
+    setVisible(instance.scroll > 500);
+  });
 
   return (
     <AnimatePresence>
@@ -55,8 +46,8 @@ export function BackToTop() {
         >
           <Button
             size="icon"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="size-10 rounded-full border border-cyan-400/30 bg-card/90 shadow-lg backdrop-blur-sm hover:bg-cyan-400/10"
+            onClick={() => lenis?.scrollTo(0)}
+            className="size-10 rounded-sm border border-cyan-400/30 bg-card hover:bg-cyan-400/10"
             aria-label="Back to top"
           >
             <ArrowUp className="size-4 text-cyan-400" />

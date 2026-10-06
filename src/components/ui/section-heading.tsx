@@ -23,7 +23,7 @@ export function SectionHeading({
       transition={{ duration: 0.5 }}
       className={align === "center" ? "text-center" : "text-left"}
     >
-      <p className="mb-2 text-sm font-medium uppercase tracking-widest text-cyan-400">
+      <p className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-cyan-400">
         {label}
       </p>
       <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

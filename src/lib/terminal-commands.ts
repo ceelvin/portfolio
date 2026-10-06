@@ -4,8 +4,7 @@ import { randomFortune } from "@/lib/terminal-fun";
 
 export function runTerminalCommand(
   input: string,
-  onNavigate?: (section: SectionId) => void,
-  onThemeToggle?: () => void
+  onNavigate?: (section: SectionId) => void
 ): string[] {
   const trimmed = input.trim().toLowerCase();
   if (!trimmed) return [];
@@ -24,7 +23,7 @@ export function runTerminalCommand(
         "  contact    — contact info",
         "  goto home|about|projects|contact",
         "  fortune    — random dev wisdom",
-        "  theme      — toggle dark/light mode",
+        "  theme      — theme status",
         "  clear      — clear terminal",
       ];
 
@@ -74,7 +73,7 @@ export function runTerminalCommand(
       }
       onNavigate?.(target as SectionId);
       return [
-        `Navigating to ${target === "home" ? "/" : `/${target}`}...`,
+        `Navigating to ${target}...`,
       ];
     }
 
@@ -82,8 +81,7 @@ export function runTerminalCommand(
       return randomFortune();
 
     case "theme":
-      onThemeToggle?.();
-      return ["Toggling theme..."];
+      return ["Theme locked: dark."];
 
     case "clear":
       return ["__CLEAR__"];

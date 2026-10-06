@@ -83,7 +83,7 @@ export default function RootLayout({
         <AppProviders>
           <Link
             href="/"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-cyan-500 focus:px-4 focus:py-2 focus:text-navy-950 focus:outline-none"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-cyan-400 focus:px-4 focus:py-2 focus:text-void focus:outline-none"
           >
             Skip to content
           </Link>
